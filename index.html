@@ -726,7 +726,8 @@ async function wrapUp(){
     state.history=state.history||[]; state.history.unshift({at:state.session.at,q:qn,sec,fol});
     state.history=state.history.slice(0,60); save();
     await IDB.put(CFG.key+"-last",LAST);
-    report({name:(state.name||"").trim(),tool:CFG.fileTag||CFG.key,school:CFG.school,round:state.round,at:state.session.at,q:qn,sec,fol,ua:(navigator.userAgent||"").slice(0,140)});
+    let prompt=""; try{ prompt=buildPrompt(audioSource()); }catch(e){}
+    report({name:(state.name||"").trim(),tool:CFG.fileTag||CFG.key,school:CFG.school,round:state.round,theme:(state.theme||"").trim(),at:state.session.at,q:qn,sec,fol,prompt,ua:(navigator.userAgent||"").slice(0,140)});
   }
 }
 async function finishIv(){
