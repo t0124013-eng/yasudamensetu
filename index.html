@@ -8,207 +8,239 @@
 <body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap">
 <style>
-/* 白地の明るい画面に固定。Layout: 上部にタブ（面接練習／質問リスト）。面接練習は「はじめる → 面接中 → おわり」の3画面を切り替える。 */
+/* 面接ルーム：白地・大学ごとのテーマ色。主役は「面接官の吹き出し」と「声に反応するマイクボタン」 */
 :root{
-  --bg:#ffffff; --panel:#f4f7f5; --line:#d9e1dc; --ink:#17201c; --muted:#5d6b64;
-  --accent:#2c6a57; --accent-ink:#ffffff; --accent-soft:#e2efe9; --warm:#b4641e; --warm-soft:#fbefe2; --rec:#d83f3f;
-  --display:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;
-  --body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
-  --r:16px; color-scheme:light;
+  --bg:#ffffff; --surface:#f2f3f7; --line:#e2e4eb; --ink:#161a26; --muted:#6b7185;
+  --accent:#5a2d82; --accent-ink:#ffffff; --soft:#efe8f6; --rec:#ef4359; --rec-soft:#fde8eb; --gold:#f5a524; --ok:#1f9d6b;
+  --round:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Hiragino Sans",system-ui,sans-serif;
+  --body:"Noto Sans JP","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+  color-scheme:light;
 }
 *{box-sizing:border-box}
-html,body{background:var(--bg)}
-body{color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.7;padding-inline:16px;padding-block:0 48px;margin:0}
+html,body{background:var(--bg);margin:0}
+body{color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.7;-webkit-text-size-adjust:100%}
 [hidden]{display:none!important}
 button,input,select,textarea{font:inherit;color:inherit}
-:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-.wrap{max-width:880px;margin:0 auto}
-/* ヘッダー */
-.top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:22px 12px;border-bottom:1px solid var(--line)}
-.top .home{flex-basis:100%;font-size:13.5px;font-weight:700;color:var(--accent);text-decoration:none;margin-bottom:-4px}
-.top .eyebrow{font-size:12.5px;color:var(--muted);letter-spacing:.04em}
-.top h1{font-family:var(--display);font-weight:800;font-size:clamp(22px,3.6vw,30px);line-height:1.3;margin:2px 0 0}
-.tabs{display:flex;gap:4px;background:var(--panel);padding:4px;border-radius:999px}
-.tabs button{border:0;background:transparent;padding:8px 18px;border-radius:999px;cursor:pointer;font-size:14.5px;color:var(--muted);font-weight:700}
-.tabs button[aria-selected="true"]{background:var(--ink);color:#fff}
-main{padding-top:24px}
-/* 共通部品 */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:10px 18px;cursor:pointer;font-weight:700;font-size:15px;text-decoration:none;color:var(--ink);white-space:nowrap}
-.btn:hover{border-color:var(--ink)}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.btn.primary:hover{filter:brightness(1.08)}
-.btn.huge{font-size:19px;padding:16px 34px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
+.app{max-width:560px;margin:0 auto;padding:0 16px calc(96px + env(safe-area-inset-bottom,0px))}
+/* 上のバー */
+.bar{padding:18px 0 10px}
+.bar .home{display:inline-block;font-size:13.5px;font-weight:700;color:var(--accent);text-decoration:none;margin-bottom:6px}
+.bar .eyebrow{font-size:12.5px;color:var(--muted);line-height:1.5;margin:0}
+.bar h1{font-family:var(--round);font-weight:900;font-size:22px;line-height:1.35;margin:2px 0 0;letter-spacing:.01em}
+/* 下のタブ */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px))}
+.tabbar .in{max-width:560px;margin:0 auto;display:flex}
+.tabbar button{flex:1;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 0 4px;font-size:11.5px;font-weight:700;color:var(--muted);cursor:pointer;border-radius:12px}
+.tabbar button svg{width:24px;height:24px}
+.tabbar button[aria-selected="true"]{color:var(--accent)}
+.tabbar button[aria-selected="true"] .dot{background:var(--accent)}
+.tabbar .dot{width:4px;height:4px;border-radius:50%;background:transparent;margin-top:1px}
+body.running .tabbar,body.running .bar{display:none}
+body.running .app{padding-top:14px}
+/* 共通 */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:10px 18px;cursor:pointer;font-weight:700;font-size:15px;text-decoration:none;color:var(--ink);font-family:var(--round)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.done{background:var(--soft);border-color:var(--accent);color:var(--accent)}
 .btn.ghost{border-color:transparent;background:transparent;color:var(--muted)}
 .btn:disabled{opacity:.45;cursor:default}
-.btn.done{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
-.card{background:#fff;border:1.5px solid var(--line);border-radius:var(--r);padding:clamp(18px,3.5vw,32px)}
+.btn.huge{font-size:19px;padding:16px 28px;width:100%}
 .small{font-size:13px;color:var(--muted)}
-.warn{color:var(--warm)}
-kbd{font:inherit;font-size:12px;border:1.5px solid currentColor;border-radius:5px;padding:0 6px;opacity:.85;margin-left:4px}
-/* はじめる画面 */
-.hero h2{font-family:var(--display);font-weight:800;font-size:clamp(22px,3.4vw,28px);margin:0 0 6px;text-wrap:balance}
-.hero p{margin:0;color:var(--muted)}
-.flow{list-style:none;padding:0;margin:22px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;counter-reset:f}
-.flow li{background:var(--panel);border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.55;counter-increment:f;position:relative;padding-top:34px}
-.flow li::before{content:counter(f);position:absolute;top:10px;left:14px;font-family:var(--display);font-weight:800;color:var(--accent);font-size:17px}
-.flow li b{display:block;font-size:15px}
-@media (max-width:640px){.flow{gap:6px}.flow li{font-size:11.5px;padding:28px 8px 9px;line-height:1.45}.flow li::before{left:9px;top:7px}.flow li b{font-size:12.5px}.hero p{font-size:14.5px}}
-.setrow{display:flex;flex-wrap:wrap;gap:18px 28px;align-items:flex-end;margin-top:24px}
-.field{display:flex;flex-direction:column;gap:6px}
-.field>span{font-size:13px;color:var(--muted);font-weight:700}
-.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:12px;overflow:hidden}
-.seg button{border:0;background:#fff;padding:9px 14px;cursor:pointer;font-size:14.5px;line-height:1.3;text-align:center}
-.seg button+button{border-left:1.5px solid var(--line)}
-.seg button small{display:block;font-size:11.5px;color:var(--muted)}
-.seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
-.seg button[aria-pressed="true"] small{color:#dff0e8}
-.sw{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px;padding:8px 0}
-.sw input{appearance:none;width:44px;height:26px;border-radius:999px;background:var(--line);position:relative;cursor:pointer;transition:background .15s;flex:none;margin:0}
-.sw input::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .15s;box-shadow:0 1px 2px rgba(0,0,0,.25)}
+.warn{color:var(--rec)}
+.alert{background:var(--rec-soft);color:#9b1c2e;border-radius:14px;padding:10px 14px;font-size:14px;line-height:1.6}
+h2.sec{font-family:var(--round);font-weight:700;font-size:15px;color:var(--muted);margin:26px 0 10px}
+kbd{font:inherit;font-size:12px;border:1.5px solid currentColor;border-radius:5px;padding:0 6px;opacity:.85}
+@media (hover:none){kbd{display:none}}
+/* ホーム */
+.count{display:block;width:100%;text-align:left;border:0;cursor:pointer;background:var(--accent);color:#fff;border-radius:28px;padding:20px 22px 18px;position:relative;overflow:hidden}
+.count .lbl{font-size:14px;font-weight:700;opacity:.85}
+.count .big{font-family:var(--round);font-weight:900;font-size:64px;line-height:1;letter-spacing:-.02em;display:flex;align-items:baseline;gap:6px;margin-top:4px}
+.count .big small{font-size:20px;font-weight:700}
+.count .sub{font-size:13px;opacity:.85;margin-top:6px}
+.count .deco{position:absolute;right:-18px;bottom:-26px;width:150px;height:150px;opacity:.16}
+.count.unset{background:var(--surface);color:var(--ink)}
+.count.unset .big{font-size:22px;margin-top:2px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.stat{background:var(--surface);border-radius:18px;padding:12px 12px 10px}
+.stat b{display:block;font-family:var(--round);font-weight:900;font-size:26px;line-height:1.1}
+.stat b small{font-size:13px;font-weight:700;margin-left:2px}
+.stat span{font-size:12px;color:var(--muted)}
+.stat.fire b{color:var(--gold)}
+.chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.chip{border:2px solid var(--line);background:#fff;border-radius:20px;padding:12px 8px 10px;cursor:pointer;text-align:center}
+.chip b{display:block;font-family:var(--round);font-weight:900;font-size:22px;line-height:1.1}
+.chip span{display:block;font-size:12.5px;color:var(--muted)}
+.chip em{display:block;font-style:normal;font-size:12px;font-weight:700;margin-top:2px}
+.chip[aria-pressed="true"]{border-color:var(--accent);background:var(--soft)}
+.chip[aria-pressed="true"] em{color:var(--accent)}
+.selnote{background:var(--soft);border-radius:16px;padding:12px 14px;font-size:14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.toggles{display:flex;flex-direction:column;margin-top:10px;border:1.5px solid var(--line);border-radius:18px;overflow:hidden}
+.sw{display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;font-size:15px;padding:12px 14px;background:#fff}
+.sw+.sw{border-top:1px solid var(--line)}
+.sw input{appearance:none;width:46px;height:28px;border-radius:999px;background:var(--line);position:relative;cursor:pointer;transition:background .15s;flex:none;margin:0}
+.sw input::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:left .15s;box-shadow:0 1px 2px rgba(0,0,0,.25)}
 .sw input:checked{background:var(--accent)}
 .sw input:checked::after{left:21px}
-.go{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:26px}
-details.more{margin-top:20px;border-top:1px solid var(--line);padding-top:14px}
+.prep{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pbtn{border:1.5px solid var(--line);background:#fff;border-radius:18px;padding:12px 14px;text-align:left;cursor:pointer;display:flex;gap:10px;align-items:center}
+.pbtn .ic{width:36px;height:36px;border-radius:50%;background:var(--surface);display:grid;place-items:center;flex:none}
+.pbtn .ic svg{width:20px;height:20px}
+.pbtn b{display:block;font-size:14.5px;line-height:1.3}
+.pbtn span{font-size:12px;color:var(--muted)}
+.pbtn.ok{border-color:var(--ok)}
+.pbtn.ok .ic{background:var(--ok);color:#fff}
+.check{margin-top:10px;background:var(--surface);border-radius:16px;padding:12px 14px;font-size:14px}
+.check audio{width:100%;margin-top:8px}
+.meter2{height:10px;border-radius:5px;background:#fff;overflow:hidden;margin-top:8px}
+.meter2 i{display:block;height:100%;width:0;background:var(--accent);transition:width .08s linear}
+.meter2 i.lo{background:var(--line)}
+.cta{position:sticky;bottom:calc(76px + env(safe-area-inset-bottom,0px));margin-top:22px;z-index:5}
+.cta .btn.huge{box-shadow:0 8px 24px -10px var(--accent)}
+.resume{margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1.5px dashed var(--line);border-radius:16px;padding:10px 14px;font-size:13.5px}
+details.more{margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
 details.more summary{cursor:pointer;color:var(--muted);font-size:14px;font-weight:700}
-.moregrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:12px}
-.moregrid .wide{grid-column:1/-1}
-@media (max-width:560px){.moregrid{grid-template-columns:minmax(0,1fr)}}
-.moregrid input,.moregrid select,.moregrid textarea{border:1.5px solid var(--line);border-radius:10px;padding:9px 11px;background:#fff;width:100%;font-size:15px}
-.check{margin-top:14px;background:var(--panel);border-radius:12px;padding:12px 14px;font-size:14px}
-.notice{margin-top:16px;font-size:13px;color:var(--muted)}
+.field{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.field>span{font-size:13px;color:var(--muted);font-weight:700}
+.field input,.field select,.field textarea{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff;width:100%;font-size:15px}
+.notice{margin-top:14px;font-size:12.5px;color:var(--muted)}
 /* 面接中 */
-.run{display:flex;flex-direction:column;gap:18px}
-.prog{display:flex;align-items:center;gap:12px}
-.dots{display:flex;gap:5px;flex:1}
-.dots i{height:6px;flex:1;border-radius:3px;background:var(--line)}
+.run{display:flex;flex-direction:column;min-height:calc(100svh - 120px)}
+.rtop{display:flex;align-items:center;gap:10px;padding-top:4px}
+.rtop .x{border:0;background:var(--surface);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:18px;line-height:1;flex:none}
+.dots{display:flex;gap:4px;flex:1}
+.dots i{height:8px;flex:1;border-radius:4px;background:var(--line)}
 .dots i.on{background:var(--accent)}
-.dots i.now{background:var(--accent);opacity:.45}
-.prog .meta{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
-.qcard{background:var(--panel);border-radius:var(--r);padding:clamp(20px,4vw,36px);display:flex;flex-direction:column;gap:12px;min-height:200px}
-.qtag{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--accent);font-size:14px}
-.qtag .num{font-family:var(--display);font-size:26px;line-height:1}
-.qtag.follow{color:var(--warm)}
-.qtext{font-size:clamp(21px,3.2vw,30px);font-weight:700;line-height:1.55;margin:0;text-wrap:balance}
-.who{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
-.who .av{width:34px;height:34px;border-radius:50%;background:#fff;display:grid;place-items:center;flex:none;position:relative}
-.who.talk .av::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2.5px solid var(--accent);animation:pulse 1.1s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:.2}50%{opacity:1}}
-.answer{border:2px solid var(--accent);border-radius:var(--r);padding:18px 20px;display:flex;flex-direction:column;gap:12px}
-.answer.idle{border-color:var(--line);opacity:.6}
-.ahead{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.recdot{width:11px;height:11px;border-radius:50%;background:var(--rec);animation:pulse 1.1s infinite}
-.answer.idle .recdot{animation:none;background:var(--line)}
-.timer{font-family:var(--display);font-weight:800;font-size:34px;line-height:1;font-variant-numeric:tabular-nums;margin-left:auto}
-.timer.over{color:var(--warm)}
-.tbar{height:8px;border-radius:4px;background:var(--panel);position:relative;overflow:hidden}
-.tbar i{position:absolute;inset:0 auto 0 0;background:var(--accent);width:0}
-.tbar.over i{background:var(--warm)}
-.tbar b{position:absolute;top:0;bottom:0;width:2px;background:var(--ink);opacity:.3}
-.tlabels{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:-6px}
-.live{font-size:16px;line-height:1.7;min-height:3.4em;max-height:9em;overflow-y:auto;color:var(--ink)}
-.live .interim{color:var(--muted)}
-.live:empty::before{content:"話すと、ここに文字が出ます";color:var(--muted)}
-.ctl{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.ctl .btn.huge{flex:1 1 260px}
+.dots i.now{background:var(--accent);opacity:.4}
+.rtop .meta{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.rtop .meta.warn{color:var(--rec);font-weight:700}
+.stage{display:flex;gap:12px;align-items:flex-start;margin-top:22px}
+.av{width:58px;height:58px;flex:none;border-radius:50%;background:var(--soft);display:grid;place-items:center}
+.av svg{width:50px;height:50px}
+.av .mouth{transform-origin:25px 33px;transition:transform .1s}
+.stage.talk .av .mouth{animation:talk .28s ease-in-out infinite alternate}
+@keyframes talk{from{transform:scaleY(.4)}to{transform:scaleY(1.6)}}
+.bubble{flex:1;background:var(--surface);border-radius:4px 24px 24px 24px;padding:14px 16px 16px}
+.qtag{font-family:var(--round);font-weight:700;font-size:13px;color:var(--accent);display:flex;align-items:center;gap:6px}
+.qtag .num{font-weight:900;font-size:18px}
+.qtag.follow{color:#b5610b}
+.qtext{font-family:var(--round);font-weight:700;font-size:21px;line-height:1.55;margin:4px 0 0;text-wrap:pretty}
+.who{font-size:12.5px;color:var(--muted);margin:8px 0 0 70px;min-height:1.5em}
+.micwrap{margin-top:auto;padding:24px 0 8px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.mic{--lv:0;position:relative;width:132px;height:132px;border-radius:50%;border:0;background:var(--accent);color:#fff;cursor:pointer;display:grid;place-items:center;font-family:var(--round);font-weight:900;font-size:15px;line-height:1.3;text-align:center;transition:background .2s,transform .1s}
+.mic:active{transform:scale(.97)}
+.mic svg{width:40px;height:40px;display:block;margin:0 auto 2px}
+.mic::before,.mic::after{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none}
+.mic::before{background:var(--rec);opacity:0;transform:scale(1);transition:transform .09s linear,opacity .2s}
+.mic.rec{background:var(--rec)}
+.mic.rec::before{opacity:.22;transform:scale(calc(1.06 + var(--lv)*.55))}
+.mic.rec::after{border:3px solid var(--rec);opacity:.35;transform:scale(calc(1.02 + var(--lv)*.3))}
+.mic.wait{background:var(--line);color:var(--muted);cursor:default}
+.mic.ready{animation:breathe 2.2s ease-in-out infinite}
+@keyframes breathe{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 35%,transparent)}50%{box-shadow:0 0 0 14px color-mix(in srgb,var(--accent) 0%,transparent)}}
+.timer{font-family:var(--round);font-weight:900;font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
+.timer.over{color:var(--rec)}
+.zone{width:100%;max-width:320px}
+.zbar{height:10px;border-radius:5px;background:var(--surface);position:relative;overflow:hidden}
+.zbar .ok{position:absolute;top:0;bottom:0;left:25%;width:25%;background:color-mix(in srgb,var(--ok) 22%,transparent)}
+.zbar i{position:absolute;inset:0 auto 0 0;width:0;background:var(--accent);border-radius:5px}
+.zbar.over i{background:var(--rec)}
+.zlab{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:3px}
+.hint{font-size:13.5px;color:var(--muted);text-align:center;min-height:1.6em}
+.rbtns{display:flex;justify-content:center;gap:8px;margin-top:6px}
 /* おわり */
-.done h2{font-family:var(--display);font-weight:800;font-size:clamp(22px,3.4vw,28px);margin:0}
-.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-.stat{background:var(--panel);border-radius:12px;padding:10px 16px;min-width:120px}
-.stat b{display:block;font-family:var(--display);font-size:26px;line-height:1.1;font-variant-numeric:tabular-nums}
-.stat span{font-size:12.5px;color:var(--muted)}
-.steps{list-style:none;padding:0;margin:22px 0 0;display:flex;flex-direction:column;gap:12px}
-.steps li{display:grid;grid-template-columns:44px 1fr;gap:4px 14px;align-items:start;border:1.5px solid var(--line);border-radius:14px;padding:16px}
-.steps li.cur{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-.steps li.ok{opacity:.7}
-.steps .n{grid-row:1/3;width:44px;height:44px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:19px}
-.steps li.ok .n{background:var(--accent)}
-.steps h3{margin:0;font-size:16.5px}
+.done h2{font-family:var(--round);font-weight:900;font-size:28px;line-height:1.3;margin:6px 0 4px}
+.cele{position:relative;height:0}
+.cele i{position:absolute;top:0;width:8px;height:14px;border-radius:2px;opacity:0;animation:fall 1.3s ease-out forwards}
+@keyframes fall{0%{opacity:1;transform:translateY(-10px) rotate(0)}100%{opacity:0;transform:translateY(120px) rotate(320deg)}}
+.player{margin-top:14px}
+.player audio{width:100%}
+.steps{list-style:none;padding:0;margin:18px 0 0;display:flex;flex-direction:column;gap:10px}
+.steps li{display:grid;grid-template-columns:36px 1fr;gap:2px 12px;align-items:start;border:1.5px solid var(--line);border-radius:22px;padding:14px}
+.steps li.cur{border-color:var(--accent);background:linear-gradient(var(--soft),#fff 70%)}
+.steps li.ok{opacity:.65}
+.steps .n{grid-row:1/3;width:36px;height:36px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:var(--round);font-weight:900;font-size:16px}
+.steps li.cur .n{background:var(--accent)}
+.steps li.ok .n{background:var(--ok)}
+.steps h3{margin:5px 0 0;font-family:var(--round);font-size:17px}
 .steps .body{display:flex;flex-direction:column;gap:8px;align-items:flex-start;font-size:14.5px}
-.steps .path{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.steps .path span{background:var(--panel);border-radius:6px;padding:2px 9px;font-weight:700;font-size:13.5px}
-.steps .path i{font-style:normal;color:var(--muted)}
-details.review{margin-top:18px;border:1.5px solid var(--line);border-radius:14px;padding:12px 16px}
+.path{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.path span{background:var(--surface);border-radius:8px;padding:2px 9px;font-weight:700;font-size:13px}
+.path i{font-style:normal;color:var(--muted)}
+.ctl{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+details.review{margin-top:16px;border:1.5px solid var(--line);border-radius:18px;padding:12px 16px}
 details.review summary{cursor:pointer;font-weight:700}
-.alist{display:flex;flex-direction:column;gap:14px;margin-top:14px}
+.alist{display:flex;flex-direction:column;gap:12px;margin-top:12px}
 .aitem{display:grid;grid-template-columns:auto 1fr;gap:6px 12px}
-.aitem .badge{font-family:var(--display);font-weight:800;width:34px;height:34px;border-radius:9px;background:var(--accent);color:#fff;display:grid;place-items:center}
-.aitem .q{font-weight:700;font-size:14.5px}
+.aitem .badge{font-family:var(--round);font-weight:900;width:32px;height:32px;border-radius:10px;background:var(--accent);color:#fff;display:grid;place-items:center;font-size:14px}
+.aitem .q{font-weight:700;font-size:14px}
 .aitem .q small{color:var(--muted);font-weight:400;margin-left:6px}
-.aitem textarea{grid-column:2;border:1.5px solid var(--line);border-radius:10px;padding:9px 11px;min-height:76px;resize:vertical;font-size:14.5px;line-height:1.6}
 .again{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+/* 記録 */
+.log{display:flex;flex-direction:column;gap:8px}
+.logi{display:grid;grid-template-columns:52px 1fr auto;gap:12px;align-items:center;border:1.5px solid var(--line);border-radius:18px;padding:10px 14px}
+.logi .d{font-family:var(--round);font-weight:900;text-align:center;line-height:1.15}
+.logi .d b{display:block;font-size:22px}
+.logi .d span{font-size:11.5px;color:var(--muted)}
+.logi .t{font-size:14px}
+.logi .t small{display:block;color:var(--muted);font-size:12.5px}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:6px}
+.week div{text-align:center;font-size:11.5px;color:var(--muted)}
+.week i{display:block;width:100%;aspect-ratio:1;border-radius:10px;background:var(--surface);margin-bottom:3px}
+.week i.on{background:var(--accent)}
+.week i.today{outline:2px solid var(--accent);outline-offset:-2px}
+.empty{background:var(--surface);border-radius:20px;padding:22px;text-align:center;color:var(--muted);font-size:14.5px}
 /* 質問リスト */
 .ltools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
-.ltools .count{margin-left:auto;font-size:13.5px;color:var(--muted)}
-.lgroup{margin-top:22px}
-.lgroup h3{font-size:14px;color:var(--muted);letter-spacing:.06em;margin:0 0 8px}
-.qitem{display:grid;grid-template-columns:auto 1fr auto;gap:2px 12px;align-items:start;padding:12px 4px;border-top:1px solid var(--line)}
-.qitem .badge{font-family:var(--display);font-weight:800;width:36px;height:36px;border-radius:9px;background:var(--panel);display:grid;place-items:center;font-size:17px}
+.ltools .count2{margin-left:auto;font-size:13px;color:var(--muted)}
+.lgroup{margin-top:20px}
+.lgroup h3{font-family:var(--round);font-size:15px;margin:0 0 6px}
+.qitem{display:grid;grid-template-columns:auto 1fr auto;gap:2px 12px;align-items:start;padding:12px 2px;border-top:1px solid var(--line)}
+.qitem .badge{font-family:var(--round);font-weight:900;width:34px;height:34px;border-radius:10px;background:var(--surface);display:grid;place-items:center;font-size:15px}
 .qitem.sel .badge{background:var(--accent);color:#fff}
-.qitem .t{padding-top:5px}
-.star{color:var(--warm);font-size:12px;font-weight:700;margin-left:6px;white-space:nowrap}
-.qitem input{width:22px;height:22px;accent-color:var(--accent);margin-top:7px;cursor:pointer}
+.qitem .t{padding-top:4px;font-size:15px}
+.star{color:#b5610b;font-size:12px;font-weight:700;margin-left:6px;white-space:nowrap}
+.qitem input{width:22px;height:22px;accent-color:var(--accent);margin-top:6px;cursor:pointer}
 .qitem details{grid-column:2/4;font-size:13.5px;color:var(--muted)}
 .qitem summary{cursor:pointer;width:max-content}
 .qitem details p{margin:4px 0 0}
-.lfoot{position:sticky;bottom:12px;margin-top:20px;display:flex;justify-content:center}
-.meter{display:inline-flex;gap:2px;align-items:flex-end;height:18px}
-.meter i{width:4px;background:var(--line);border-radius:1px}
-.meter i:nth-child(1){height:5px}.meter i:nth-child(2){height:7px}.meter i:nth-child(3){height:9px}.meter i:nth-child(4){height:11px}.meter i:nth-child(5){height:13px}.meter i:nth-child(6){height:15px}.meter i:nth-child(7){height:17px}.meter i:nth-child(8){height:18px}
-.meter i.on{background:var(--accent)}
-.mh2{font-family:var(--display);font-weight:800;font-size:clamp(20px,3.2vw,26px);margin:0}
-.mh3{font-size:15px;margin:24px 0 10px;padding-left:8px;border-left:4px solid var(--accent);line-height:1.3}
-.mrows{display:flex;flex-direction:column;gap:12px}
-.mrow{border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.lfoot{position:sticky;bottom:calc(76px + env(safe-area-inset-bottom,0px));margin-top:18px}
+/* 先生用（手入力） */
+.card{border:1.5px solid var(--line);border-radius:22px;padding:18px 16px}
+.mh2{font-family:var(--round);font-weight:900;font-size:20px;margin:0}
+.mh3{font-family:var(--round);font-size:16px;margin:22px 0 8px}
+.moregrid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.moregrid .wide{grid-column:1/-1}
+.mrows{display:flex;flex-direction:column;gap:10px}
+.mrow{border:1.5px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px}
 .mhead{display:flex;justify-content:space-between;align-items:center}
 .mhead .btn{padding:4px 10px;font-size:13px}
-.mrow select,.mrow input,.mrow textarea,#vManual .moregrid input,#vManual .moregrid textarea,#vManual .field>textarea{border:1.5px solid var(--line);border-radius:10px;padding:9px 11px;background:#fff;width:100%;font-size:15px;line-height:1.6}
-.mrow select{font-weight:700}
-.mgrid{display:grid;grid-template-columns:150px 1fr;gap:10px}
-@media (max-width:560px){.mgrid{grid-template-columns:minmax(0,1fr)}}
-.tabs button[hidden]{display:none}
-.meter2{height:10px;border-radius:5px;background:var(--panel);overflow:hidden;flex:1}
-.meter2 i{display:block;height:100%;width:0;background:var(--accent);transition:width .08s linear}
-.meter2 i.lo{background:var(--line)}
-.mrow2{display:flex;align-items:center;gap:10px}
-.mrow2 .small{white-space:nowrap}
-.check .meter2{margin-top:8px}
-.prog .meta.warn{color:var(--warm);font-weight:700}
-.player{margin-top:16px;display:flex;flex-direction:column;gap:6px}
-.player audio{width:100%}
-.alert{background:var(--warm-soft);color:#7a3d0a;border-radius:12px;padding:10px 14px;font-size:14px;line-height:1.6}
-.btn.go{background:var(--ink);border-color:var(--ink)}
-@media (max-width:640px){
-  .ctl.bar{position:sticky;bottom:0;background:#fff;padding:10px 0 calc(10px + env(safe-area-inset-bottom,0px));margin-bottom:-10px;border-top:1px solid var(--line);z-index:5}
-  .ctl.bar .btn.huge{flex:1 1 100%;font-size:18px;padding:16px}
-  .ctl.bar .btn:not(.huge){flex:1;padding:9px 10px;font-size:14px}
-  .qcard{min-height:0;padding:18px}
-  .qtext{font-size:21px}
-  .answer{padding:14px 16px}
-  .timer{font-size:28px}
-  .go .btn{flex:1 1 auto}
-  .go .btn.huge{flex:1 1 100%}
-}
-@media (hover:none){ kbd{display:none} }
+.mrow select,.mrow input,.mrow textarea{border:1.5px solid var(--line);border-radius:12px;padding:9px 11px;background:#fff;width:100%;font-size:15px}
+.mgrid{display:grid;grid-template-columns:130px 1fr;gap:10px}
+.mgrid .field{margin-top:0}
+@media (max-width:420px){.mgrid,.moregrid{grid-template-columns:minmax(0,1fr)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
-<div class="wrap">
-  <header class="top">
-    <div><div class="eyebrow" id="eyebrow"></div><h1 id="ttl"></h1></div>
-    <nav class="tabs" role="tablist" aria-label="表示の切り替え">
-      <button role="tab" id="tabPractice" aria-selected="true" type="button">面接練習</button>
-      <button role="tab" id="tabList" aria-selected="false" type="button">質問リスト</button>
-      <button role="tab" id="tabManual" aria-selected="false" type="button" hidden>手入力でFB</button>
-    </nav>
+<div class="app">
+  <header class="bar">
+    <p class="eyebrow" id="eyebrow"></p>
+    <h1 id="ttl"></h1>
   </header>
   <main>
     <section id="vPractice"></section>
     <section id="vList" hidden></section>
+    <section id="vLog" hidden></section>
     <section id="vManual" hidden></section>
   </main>
 </div>
+<nav class="tabbar" aria-label="画面の切り替え"><div class="in" role="tablist">
+  <button role="tab" id="tabPractice" aria-selected="true" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>練習<span class="dot"></span></button>
+  <button role="tab" id="tabList" aria-selected="false" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg>質問リスト<span class="dot"></span></button>
+  <button role="tab" id="tabLog" aria-selected="false" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>記録<span class="dot"></span></button>
+  <button role="tab" id="tabManual" aria-selected="false" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>先生用<span class="dot"></span></button>
+</div></nav>
 
 <script>
 const UNIV=`立教大学 経済学部 会計ファイナンス学科（2027年度入試）
@@ -300,7 +332,7 @@ const FOLLOW={
  "志望理由書の深掘り":["それを数字で言うと、どのくらいですか。","そのとき、あなた自身はどう判断しましたか。","その経験を、本学科のどの学びにつなげますか。","もう一度やるとしたら、何を変えますか。"]
 };
 
-const CFG={
+const CFG={accent:"#5a2d82",soft:"#efe8f6",
  key:"rikkyo-af-s1", fileTag:"立教", title:"会計ファイナンス学科 面接セルフ練習（志望理由書版）",
  school:"立教大学 経済学部 会計ファイナンス学科", exam:"自由選抜入試",
  format:"個人面接 約15分（2次選考。総合科目もあり）",
@@ -340,7 +372,7 @@ const rnd=a=>a[Math.floor(Math.random()*a.length)];
 const fmtT=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,"0")}`;
 
 /* ---------- 保存（このブラウザ内） ---------- */
-let state={sel:[...CFG.defaultSel],set:{count:8,voice:true,follow:true,src:"rand"},round:"1回目",theme:"",answers:{},times:{},session:null};
+let state={sel:[...CFG.defaultSel],set:{count:8,voice:true,follow:true,src:"rand"},round:"1回目",theme:"",answers:{},times:{},session:null,history:[],examDate:"",checks:{}};
 try{ const s=JSON.parse(localStorage.getItem(CFG.key)||"null"); if(s) state=Object.assign(state,s,{set:Object.assign(state.set,s.set||{})}); }catch(e){}
 let svT; function save(){ clearTimeout(svT); svT=setTimeout(()=>{ try{localStorage.setItem(CFG.key,JSON.stringify(state));}catch(e){} },250); }
 
@@ -432,212 +464,6 @@ const REC_MSG={
 const ENV_BAD=location.protocol==="file:"?"このページはファイルを直接開いているため、録音できません。Webにアップしたページ（https://〜）を開いてください。":(window.self!==window.top?"このページはほかのページの中に表示されているため、マイクが使えない場合があります。ページを単独で開いてください。":"");
 function mkMeter(){ const i=el("i"); const e=el("div",{class:"meter2"},i); return {el:e,set:v=>{ i.style.width=Math.min(100,Math.sqrt(v)*260)+"%"; i.classList.toggle("lo",v<0.01); }}; }
 
-/* ---------- 画面の切り替え ---------- */
-let view="practice";
-function setView(v){ view=v; [["practice","Practice"],["list","List"],["manual","Manual"]].forEach(([k,id])=>{ $("#tab"+id).setAttribute("aria-selected",String(v===k)); $("#v"+id).hidden=v!==k; }); if(v==="list") renderList(); if(v==="manual") renderManual(); scrollTo({top:0}); }
-$("#tabPractice").addEventListener("click",()=>{ if(view!=="practice") setView("practice"); });
-$("#tabList").addEventListener("click",()=>{ if(iv.on) return; setView("list"); });
-$("#tabManual").addEventListener("click",()=>{ if(iv.on) return; setView("manual"); });
-
-/* ---------- ① はじめる ---------- */
-const iv={on:false,plan:[],idx:0,phase:"idle",follow:null,t0:0,turnT0:0,timer:null,meta:null};
-function renderIdle(){
-  const v=$("#vPractice"); v.textContent="";
-  const est=n=>`約${Math.round(n*1.5)}分`;
-  const seg=el("div",{class:"seg",role:"group","aria-label":"質問の数"});
-  [5,8,12].forEach(n=>seg.append(el("button",{type:"button","aria-pressed":String(state.set.count===n&&state.set.src!=="sel"),onclick:()=>{state.set.count=n;state.set.src="rand";save();renderIdle();}},`${n}問`,el("small",{text:est(n)}))));
-  const sw=(id,label,key)=>{ const i=el("input",{type:"checkbox",id,role:"switch"}); i.checked=!!state.set[key]; i.addEventListener("change",()=>{state.set[key]=i.checked;save();}); return el("label",{class:"sw",for:id},i,label); };
-  const src=el("select",{id:"srcSel"}); [["rand","ランダム（本番に近い順番）"],["sel",`質問リストで選んだ質問（${state.sel.length}問）`]].forEach(([v_,t])=>src.append(el("option",{value:v_,text:t}))); src.value=state.set.src; src.addEventListener("change",()=>{state.set.src=src.value;save();renderIdle();});
-  const round=el("input",{type:"text",id:"round",value:state.round}); round.addEventListener("input",()=>{state.round=round.value;save();});
-  const theme=el("textarea",{id:"theme",rows:"2",placeholder:CFG.themePH}); theme.value=state.theme; theme.addEventListener("input",()=>{state.theme=theme.value;save();});
-  const checkOut=el("div",{class:"check",hidden:""});
-  const envBad=ENV_BAD||(!CAN_REC?"このブラウザでは録音できません。iPhoneはSafari、AndroidはChromeで開いてください（LINEなどのアプリの中で開いた場合は、メニューから「ブラウザで開く」を選んでください）。":"");
-  const errBox=el("div",{class:"alert",id:"startErr",hidden:"",style:"margin-top:14px"});
-  const card=el("div",{class:"card hero"},
-    el("h2",{text:"本番と同じ流れで、ひとりで面接練習"}),
-    el("p",{text:"画面の面接官が質問を読み上げます。声で答えると、答えが録音されます。終わったら、録音と依頼文をGeminiに送ると、フィードバックのPDFが届きます。"}),
-    el("ol",{class:"flow"},
-      el("li",{},el("b",{text:"面接を受ける"}),"質問を聞いたら「答え始める」をタップ"),
-      el("li",{},el("b",{text:"録音と依頼文をGeminiへ"}),"録音を保存して、依頼文と一緒に送る"),
-      el("li",{},el("b",{text:"PDFで受け取る"}),"Geminiが作ったPDFを保存")),
-    el("div",{class:"setrow"},
-      el("div",{class:"field"},el("span",{text:"質問の数"}),state.set.src==="sel"?el("div",{class:"small",text:`質問リストで選んだ ${state.sel.length}問`}):seg),
-      sw("swVoice","質問を読み上げる","voice"),
-      sw("swFollow","深掘りの質問もする","follow")),
-    el("div",{class:"go"},
-      el("button",{class:"btn primary huge",type:"button",id:"startBtn",onclick:startIv},"面接を始める"),
-      el("button",{class:"btn",type:"button",onclick:()=>soundCheck(checkOut)},"音を確認"),
-      el("button",{class:"btn",type:"button",onclick:()=>micCheck(checkOut)},"録音を確認")),
-    errBox, checkOut,
-    el("details",{class:"more"},el("summary",{text:"詳しい設定（出題のしかた・練習回・"+CFG.themeLabel+"）"}),
-      el("div",{class:"moregrid"},
-        el("label",{class:"field",for:"srcSel"},el("span",{text:"出題のしかた"}),src),
-        el("label",{class:"field",for:"round"},el("span",{text:"練習回"}),round),
-        el("label",{class:"field wide",for:"theme"},el("span",{text:CFG.themeLabel+"（任意。書くと、答えとの一貫性も見てもらえます）"}),theme))),
-    el("p",{class:"notice",text:"iPhoneはSafari、AndroidはChromeで開いてください。マイクの確認が出たら「許可」を選びます。面接の途中で画面を閉じたり、ほかのアプリに切り替えたりすると録音が止まります。"})
-  );
-  if(envBad) card.prepend(el("div",{class:"alert",style:"margin-bottom:16px",text:envBad}));
-  v.append(card);
-  IDB.get(CFG.key+"-last").then(d=>{ if(d&&d.blob&&$("#vPractice").contains(card)){ LAST=d; card.append(el("p",{class:"small",style:"margin:14px 0 0"},`前回の録音（${new Date(d.session.at).toLocaleString("ja-JP",{month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"})}・${fmtT(d.total)}）が残っています。`,el("button",{class:"btn ghost",type:"button",style:"padding:2px 8px",onclick:()=>renderDone(false,true)},"Geminiに送る手順を開く"))); } });
-}
-let checking=false;
-function soundCheck(box){ box.hidden=false; box.textContent="面接官の声を流しています。聞こえたら準備OKです（聞こえないときは、音量とマナーモードを確かめてください）。"; unlockVoice(); speak("音声の確認です。この声が聞こえたら、準備オーケーです。"); }
-async function micCheck(box){
-  if(checking||iv.on) return; box.hidden=false; box.textContent="";
-  if(ENV_BAD||!CAN_REC){ box.append(el("span",{class:"warn",text:ENV_BAD||"このブラウザでは録音できません。iPhoneはSafari、AndroidはChromeで開いてください。"})); return; }
-  checking=true; try{ speechSynthesis.cancel(); }catch(e){}
-  const st=el("b",{text:"マイクを準備しています…"}), m=mkMeter(); box.append(el("div",{},st),m.el);
-  const ok=await micOpen();
-  if(!ok){ st.className="warn"; st.textContent="✕ "+REC_MSG[rec.err]; m.el.remove(); checking=false; return; }
-  recReset(); segStart({n:0}); st.textContent="録音中… 4秒間、「よろしくお願いします」と声に出してください";
-  const t=setInterval(()=>m.set(rec.level),80);
-  await sleep(4000); segStop(); clearInterval(t);
-  const w=buildWav(); micClose(); recReset(); m.el.remove();
-  const peak=w.marks[0]?w.marks[0].peak:0;
-  if(peak<0.01){ st.className="warn"; st.textContent="✕ "+REC_MSG.quiet; }
-  else{ st.className=""; st.style.color="var(--accent)"; st.textContent="✓ 録音できました。再生して自分の声が聞こえれば準備OKです。"; }
-  box.append(el("audio",{controls:"",src:URL.createObjectURL(w.blob),style:"width:100%;margin-top:8px"}));
-  checking=false;
-}
-function unlockVoice(){ try{ if(state.set.voice&&"speechSynthesis" in window){ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(" "); u.volume=0; speechSynthesis.speak(u); } }catch(e){} }
-
-/* ---------- ② 面接中 ---------- */
-let R={};
-function renderRun(){
-  const v=$("#vPractice"); v.textContent="";
-  R.dots=el("div",{class:"dots","aria-hidden":"true"}); iv.plan.forEach(()=>R.dots.append(el("i")));
-  R.meta=el("span",{class:"meta"});
-  R.tag=el("div",{class:"qtag"}); R.q=el("p",{class:"qtext"});
-  R.who=el("div",{class:"who"},el("span",{class:"av",html:'<svg viewBox="0 0 40 40" width="24" height="24" aria-hidden="true"><circle cx="20" cy="14" r="7" fill="#2c6a57"/><path d="M6 36c1.5-8 7-12 14-12s12.5 4 14 12z" fill="#2c6a57"/></svg>'}),R.whoT=el("span"));
-  R.timer=el("span",{class:"timer",text:"0:00"}); R.tbarI=el("i"); R.tbar=el("div",{class:"tbar"},R.tbarI,el("b",{style:"left:25%"}),el("b",{style:"left:50%"}));
-  R.m=mkMeter();
-  R.err=el("div",{class:"alert",hidden:""});
-  R.ans=el("div",{class:"answer idle"},el("div",{class:"ahead"},el("span",{class:"recdot"}),R.aLabel=el("b",{text:"面接官の質問を聞いてください"}),R.timer),R.err,
-    el("div",{class:"mrow2"},el("span",{class:"small",text:"声の大きさ"}),R.m.el),R.tbar,el("div",{class:"tlabels"},el("span",{text:"0秒"}),el("span",{text:"30秒"}),el("span",{text:"60秒"}),el("span",{text:"90秒〜"})));
-  R.next=el("button",{class:"btn primary huge",type:"button",onclick:mainAction});
-  v.append(el("div",{class:"run"},
-    el("div",{class:"prog"},R.dots,R.meta),
-    el("div",{class:"qcard"},R.who,R.tag,R.q),
-    R.ans,
-    el("div",{class:"ctl bar"},R.next,
-      el("button",{class:"btn",type:"button",onclick:()=>{ if(iv.phase==="answer") return; const q=QS[iv.plan[iv.idx]-1]; speak(iv.follow||`質問${q.n}番。${q.q}`); }},"もう一度聞く"),
-      el("button",{class:"btn ghost",type:"button",onclick:stopIv},"中断する"))));
-  updMeta();
-}
-function updMeta(){
-  if(!R.dots) return;
-  [...R.dots.children].forEach((d,i)=>{ d.className=i<iv.idx?"on":i===iv.idx?"now":""; });
-  R.meta.textContent=`${Math.min(iv.idx+1,iv.plan.length)} / ${iv.plan.length}問　録音 ${fmtT(rec.len/OUT_SR)}`;
-  R.meta.classList.toggle("warn",rec.len/OUT_SR>540);
-}
-function setSpeaking(on,label){ R.who.classList.toggle("talk",on); R.whoT.textContent=label; }
-function showQ(n,text,follow){
-  R.tag.className="qtag"+(follow?" follow":""); R.tag.textContent="";
-  if(follow) R.tag.append("続けて質問（深掘り）"); else R.tag.append(el("span",{class:"num",text:String(n)}),"番の質問");
-  R.q.textContent=text;
-}
-async function startIv(){
-  if(iv.on) return;
-  const eb=$("#startErr"); if(eb){ eb.hidden=true; }
-  if(ENV_BAD||!CAN_REC){ if(eb){ eb.hidden=false; eb.textContent=ENV_BAD||"このブラウザでは録音できません。"; } return; }
-  unlockVoice();
-  const ok=await micOpen();
-  if(!ok){ if(eb){ eb.hidden=false; eb.textContent=REC_MSG[rec.err]; eb.scrollIntoView({block:"center"}); } return; }
-  const orderSel=arr=>{ const tl=[CFG.last,...(CFG.tail||[])], rk=CFG.rank||(n=>n); return [...arr.filter(n=>!tl.includes(n)).sort((x,y)=>rk(x)-rk(y)),...tl.filter(n=>arr.includes(n))]; };
-  let plan=state.set.src==="sel"&&state.sel.length?orderSel([...state.sel]):planRandom(state.set.count);
-  recReset();
-  Object.assign(iv,{on:true,plan,idx:0,phase:"speak",follow:null,t0:Date.now()});
-  state.answers={}; state.times={}; state.session={at:new Date().toISOString(),order:[],audio:true}; save();
-  renderRun(); clearInterval(iv.meta); iv.meta=setInterval(updMeta,500);
-  setMain("wait");
-  showQ(0,"これから面接を始めます。よろしくお願いします。",true); R.tag.textContent="あいさつ";
-  setSpeaking(true,"面接官が話しています"); await speak("これから面接を始めます。よろしくお願いします。"); setSpeaking(false,"");
-  if(!iv.on) return;
-  await sleep(400); askCurrent();
-}
-async function askCurrent(){
-  if(!iv.on) return;
-  const q=QS[iv.plan[iv.idx]-1]; iv.follow=null; iv.phase="speak"; setMain("wait");
-  state.session.order.push({n:q.n,follow:null}); save(); updMeta();
-  showQ(q.n,q.q,false); idleAnswer();
-  setSpeaking(true,"面接官が話しています"); await speak(`質問${q.n}番。${q.q}`); setSpeaking(false,"");
-  if(iv.on) startTurn();
-}
-function idleAnswer(){ R.ans.classList.add("idle"); R.aLabel.textContent="面接官の質問を聞いてください"; R.timer.textContent="0:00"; R.timer.classList.remove("over"); R.tbarI.style.width="0"; R.tbar.classList.remove("over"); R.m.set(0); R.err.hidden=true; }
-function setMain(mode){
-  R.next.textContent=""; R.next.className="btn primary huge"; R.next.disabled=false;
-  if(mode==="wait"){ R.next.disabled=true; R.next.append("面接官が話しています…"); }
-  else if(mode==="ready"){ R.next.classList.add("go"); R.next.append("🎤 タップして答え始める"); if(!TOUCH) R.next.append(el("kbd",{text:"スペース"})); }
-  else if(mode==="answer"){ R.next.append("答え終わった"); if(!TOUCH) R.next.append(el("kbd",{text:"スペース"})); }
-  else if(mode==="busy"){ R.next.disabled=true; R.next.append("記録しています…"); }
-}
-function mainAction(){ if(iv.phase==="ready") beginAnswer(); else if(iv.phase==="answer") nextStep(); }
-function startTurn(){
-  iv.phase="ready"; setMain("ready"); setSpeaking(false,"お答えください");
-  R.ans.classList.add("idle"); R.aLabel.textContent="ボタンを押してから、声に出して答えてください";
-}
-function updAns(){
-  if(iv.phase!=="answer") return;
-  R.m.set(rec.level);
-  let msg="";
-  if(rec.err) msg=REC_MSG[rec.err];
-  else if(rec.ctx&&rec.ctx.state==="suspended") msg="録音が一時停止しています。画面をタップしてください。";
-  else if((Date.now()-iv.turnT0)>6000&&rec.peak<0.008) msg=REC_MSG.quiet;
-  R.err.hidden=!msg; R.err.textContent=msg;
-}
-function beginAnswer(){
-  try{ speechSynthesis.cancel(); }catch(e){}
-  if(rec.ctx&&rec.ctx.state==="suspended") rec.ctx.resume().catch(()=>{});
-  iv.phase="answer"; iv.turnT0=Date.now(); setMain("answer");
-  R.ans.classList.remove("idle"); R.aLabel.textContent="録音中。声に出して答えてください";
-  segStart({n:QS[iv.plan[iv.idx]-1].n,follow:iv.follow});
-  clearInterval(iv.timer); iv.timer=setInterval(()=>{ const s=(Date.now()-iv.turnT0)/1000; R.timer.textContent=fmtT(s); R.timer.classList.toggle("over",s>90); R.tbar.classList.toggle("over",s>90); R.tbarI.style.width=Math.min(100,s/120*100)+"%"; updAns(); },120);
-}
-function commit(){
-  clearInterval(iv.timer);
-  const q=QS[iv.plan[iv.idx]-1], sec=segStop();
-  state.answers[q.n]=(state.answers[q.n]||0)+1;
-  state.times[q.n]=(state.times[q.n]||0)+sec; save();
-}
-async function nextStep(){
-  if(!iv.on||iv.phase!=="answer") return;
-  iv.phase="busy"; setMain("busy"); R.aLabel.textContent="記録しています…";
-  commit();
-  const q=QS[iv.plan[iv.idx]-1];
-  if(state.set.follow&&!iv.follow&&FOLLOW[q.g]&&isMid(q.n)&&Math.random()<0.4){
-    const f=rnd(FOLLOW[q.g]); iv.follow=f; const o=state.session.order; o[o.length-1].follow=f; save();
-    showQ(q.n,f,true); idleAnswer(); setSpeaking(true,"面接官が話しています"); await speak(f); setSpeaking(false,"");
-    if(iv.on) startTurn(); return;
-  }
-  iv.idx++;
-  if(iv.idx>=iv.plan.length){ await finishIv(); return; }
-  await sleep(300); askCurrent();
-}
-async function wrapUp(){
-  const w=buildWav(); micClose();
-  LAST={blob:w.blob,marks:w.marks,total:w.total,session:state.session,round:state.round,theme:state.theme};
-  if(w.marks.length) await IDB.put(CFG.key+"-last",LAST);
-}
-async function finishIv(){
-  showQ(0,"以上で面接を終わります。お疲れさまでした。",true); R.tag.textContent="おわり"; idleAnswer();
-  setSpeaking(true,"面接官が話しています"); await speak("以上で面接を終わります。お疲れさまでした。");
-  iv.on=false; clearInterval(iv.meta); await wrapUp(); renderDone();
-}
-async function stopIv(){
-  try{ speechSynthesis.cancel(); }catch(e){}
-  if(iv.phase==="answer") commit(); else rec.on=false;
-  iv.on=false; clearInterval(iv.timer); clearInterval(iv.meta);
-  await wrapUp();
-  if(LAST&&LAST.marks.length) renderDone(true); else renderIdle();
-}
-document.addEventListener("keydown",e=>{
-  if(!iv.on||(iv.phase!=="answer"&&iv.phase!=="ready")) return;
-  const tg=e.target&&e.target.tagName; if(tg==="INPUT"||tg==="TEXTAREA"||tg==="SELECT") return;
-  if(e.code==="Space"||e.key==="Enter"){ e.preventDefault(); mainAction(); }
-});
-
-/* ---------- ③ おわり ---------- */
-const answered=()=>Object.keys(state.answers).map(Number).sort((a,b)=>a-b).filter(n=>(state.answers[n]||"").trim());
 function path(arr){ const d=el("div",{class:"path"}); arr.forEach((t,i)=>{ if(i) d.append(el("i",{text:"→"})); d.append(el("span",{text:t})); }); return d; }
 function stepsBlock(getPrompt,emptyMsg,desc){
   const s1=el("li",{class:"cur"}), s2=el("li"), s3=el("li");
@@ -665,70 +491,314 @@ function stepsBlock(getPrompt,emptyMsg,desc){
       "文字が重なる・はみ出す →「重なりとはみ出しを直して、レイアウト指定どおりに作り直して」")));
   return el("ol",{class:"steps"},s1,s2,s3);
 }
+const add=(p,...k)=>p.append(...k.filter(x=>x!=null));
+/* ---------- 画面の切り替え ---------- */
+let view="practice";
+const VIEWS=[["practice","Practice"],["list","List"],["log","Log"],["manual","Manual"]];
+function setView(v){ view=v; VIEWS.forEach(([k,id])=>{ $("#tab"+id).setAttribute("aria-selected",String(v===k)); $("#v"+id).hidden=v!==k; });
+  if(v==="list") renderList(); if(v==="log") renderLog(); if(v==="manual") renderManual(); if(v==="practice"&&!iv.on&&!$("#vPractice").firstChild) renderIdle(); scrollTo({top:0}); }
+VIEWS.forEach(([k,id])=>$("#tab"+id).addEventListener("click",()=>{ if(iv.on) return; setView(k); if(k==="practice") renderIdle(); }));
+
+/* ---------- 記録の計算 ---------- */
+const dayKey=d=>{ d=new Date(d); return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`; };
+function streak(){ const days=new Set((state.history||[]).map(h=>dayKey(h.at))); let s=0; const d=new Date(); if(!days.has(dayKey(d))) d.setDate(d.getDate()-1); while(days.has(dayKey(d))){ s++; d.setDate(d.getDate()-1); } return s; }
+function daysLeft(){ if(!state.examDate) return null; const t=new Date(state.examDate+"T00:00:00"), n=new Date(); n.setHours(0,0,0,0); return Math.round((t-n)/86400000); }
+const ICON={
+  speaker:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>',
+  mic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg>',
+  stop:'<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="3"/></svg>'
+};
+const AVATAR='<svg viewBox="0 0 50 50" aria-hidden="true"><circle cx="25" cy="19" r="10" fill="var(--accent)"/><path d="M8 48c2-10 9-15 17-15s15 5 17 15z" fill="var(--accent)"/><circle cx="21" cy="19" r="3.2" fill="none" stroke="#fff" stroke-width="1.6"/><circle cx="29" cy="19" r="3.2" fill="none" stroke="#fff" stroke-width="1.6"/><path d="M24.2 19h1.6" stroke="#fff" stroke-width="1.6"/><rect class="mouth" x="22.5" y="24.5" width="5" height="1.8" rx=".9" fill="#fff"/></svg>';
+
+/* ---------- ① ホーム ---------- */
+const iv={on:false,plan:[],idx:0,phase:"idle",follow:null,t0:0,turnT0:0,timer:null,meta:null};
+function renderIdle(){
+  document.body.classList.remove("running");
+  const v=$("#vPractice"); v.textContent="";
+  const left=daysLeft(), hist=state.history||[], st=streak(), qsum=hist.reduce((a,h)=>a+(h.q||0),0);
+  const dateIn=el("input",{type:"date",id:"examDate","aria-label":"本番の日"}); dateIn.value=state.examDate||"";
+  dateIn.addEventListener("change",()=>{ state.examDate=dateIn.value; save(); renderIdle(); });
+  const count=el("button",{class:"count"+(left===null?" unset":""),type:"button",onclick:()=>{ const d=$("#examDate"); const det=d.closest("details"); if(det) det.open=true; d.focus(); try{ d.showPicker&&d.showPicker(); }catch(e){} }},
+    left===null?el("span",{class:"lbl",text:"本番の日を入れると、カウントダウンが始まります"}):el("span",{class:"lbl",text:left>0?"本番まで":left===0?"今日が本番":"本番の日を過ぎました"}),
+    left===null?el("span",{class:"big",text:"本番の日を入れる"}):el("span",{class:"big"},left>0?`あと`:"",el("span",{text:String(Math.max(0,left))}),el("small",{text:"日"})),
+    el("span",{class:"sub",text:CFG.school}),
+    el("span",{class:"deco",html:AVATAR}));
+  const chips=el("div",{class:"chips",role:"group","aria-label":"質問の数"});
+  [[5,"ちょっと","約8分"],[8,"本番と同じ","約12分"],[12,"じっくり","約18分"]].forEach(([n,lab,t])=>chips.append(el("button",{class:"chip",type:"button","aria-pressed":String(state.set.count===n&&state.set.src!=="sel"),onclick:()=>{state.set.count=n;state.set.src="rand";save();renderIdle();}},el("b",{text:`${n}問`}),el("span",{text:t}),el("em",{text:lab}))));
+  const sw=(id,label,key)=>{ const i=el("input",{type:"checkbox",id,role:"switch"}); i.checked=!!state.set[key]; i.addEventListener("change",()=>{state.set[key]=i.checked;save();}); return el("label",{class:"sw",for:id},el("span",{text:label}),i); };
+  const checkOut=el("div",{class:"check",hidden:""});
+  const ck=state.checks||{};
+  const pSound=el("button",{class:"pbtn"+(ck.sound?" ok":""),type:"button",onclick:()=>soundCheck(checkOut,pSound)},el("span",{class:"ic",html:ck.sound?ICON.check:ICON.speaker}),el("span",{},el("b",{text:"音を確認"}),el("span",{text:"面接官の声が聞こえるか"})));
+  const pMic=el("button",{class:"pbtn"+(ck.mic?" ok":""),type:"button",onclick:()=>micCheck(checkOut,pMic)},el("span",{class:"ic",html:ck.mic?ICON.check:ICON.mic}),el("span",{},el("b",{text:"録音を確認"}),el("span",{text:"4秒録って聞き直す"})));
+  const round=el("input",{type:"text",id:"round",value:state.round}); round.addEventListener("input",()=>{state.round=round.value;save();});
+  const theme=el("textarea",{id:"theme",rows:"3",placeholder:CFG.themePH}); theme.value=state.theme; theme.addEventListener("input",()=>{state.theme=theme.value;save();});
+  const envBad=ENV_BAD||(!CAN_REC?"このブラウザでは録音できません。iPhoneはSafari、AndroidはChromeで開いてください（LINEなどのアプリの中で開いた場合は、メニューから「ブラウザで開く」を選んでください）。":"");
+  const errBox=el("div",{class:"alert",id:"startErr",hidden:"",style:"margin-top:12px"});
+  add(v,
+    envBad?el("div",{class:"alert",style:"margin-bottom:12px",text:envBad}):null,
+    count,
+    el("div",{class:"stats"},
+      el("div",{class:"stat"},el("b",{},String(hist.length),el("small",{text:"回"})),el("span",{text:"練習した"})),
+      el("div",{class:"stat fire"},el("b",{},String(st),el("small",{text:"日"})),el("span",{text:"連続で練習中"})),
+      el("div",{class:"stat"},el("b",{},String(qsum),el("small",{text:"問"})),el("span",{text:"答えた質問"}))),
+    el("h2",{class:"sec",text:"今日の面接"}),
+    state.set.src==="sel"?el("div",{class:"selnote"},el("span",{text:`質問リストで選んだ ${state.sel.length}問で面接します`}),el("button",{class:"btn ghost",type:"button",style:"padding:4px 8px",onclick:()=>{state.set.src="rand";save();renderIdle();}},"おまかせに戻す")):chips,
+    el("div",{class:"toggles"},sw("swVoice","質問を声で読み上げる","voice"),sw("swFollow","深掘りの質問もする","follow")),
+    el("h2",{class:"sec",text:"始める前に"}),
+    el("div",{class:"prep"},pSound,pMic), checkOut, errBox,
+    el("div",{class:"cta"},el("button",{class:"btn primary huge",type:"button",id:"startBtn",onclick:startIv},"面接を始める")),
+    el("details",{class:"more"},el("summary",{text:"本番の日・練習回・"+CFG.themeLabel}),
+      el("label",{class:"field",for:"examDate"},el("span",{text:"本番の日"}),dateIn),
+      el("label",{class:"field",for:"round"},el("span",{text:"練習回"}),round),
+      el("label",{class:"field",for:"theme"},el("span",{text:CFG.themeLabel+"（任意。書くと、答えとの一貫性も見てもらえます）"}),theme)),
+    el("p",{class:"notice",text:"iPhoneはSafari、AndroidはChromeで開いてください。マイクの確認が出たら「許可」を選びます。面接中に画面を閉じたり、ほかのアプリに切り替えたりすると録音が止まります。"}));
+  IDB.get(CFG.key+"-last").then(d=>{ if(d&&d.blob&&v.contains(count)){ LAST=d; errBox.after(el("div",{class:"resume"},el("span",{text:`前回の録音（${new Date(d.session.at).toLocaleString("ja-JP",{month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"})}・${fmtT(d.total)}）が残っています`}),el("button",{class:"btn",type:"button",style:"padding:6px 12px;font-size:13.5px",onclick:()=>renderDone(false,true)},"Geminiに送る"))); } });
+}
+let checking=false;
+function markCheck(k,btn,ok){ state.checks=state.checks||{}; state.checks[k]=ok; save(); if(btn){ btn.classList.toggle("ok",ok); btn.querySelector(".ic").innerHTML=ok?ICON.check:(k==="mic"?ICON.mic:ICON.speaker); } }
+function soundCheck(box,btn){ box.hidden=false; box.textContent="面接官の声を流しています。聞こえたら準備OK。聞こえないときは、音量とマナーモード（消音）を確かめてください。"; unlockVoice(); speak("音声の確認です。この声が聞こえたら、準備オーケーです。"); markCheck("sound",btn,true); }
+async function micCheck(box,btn){
+  if(checking||iv.on) return; box.hidden=false; box.textContent="";
+  if(ENV_BAD||!CAN_REC){ box.append(el("span",{class:"warn",text:ENV_BAD||"このブラウザでは録音できません。iPhoneはSafari、AndroidはChromeで開いてください。"})); return; }
+  checking=true; try{ speechSynthesis.cancel(); }catch(e){}
+  const st=el("b",{text:"マイクを準備しています…"}), m=mkMeter(); box.append(el("div",{},st),m.el);
+  const ok=await micOpen();
+  if(!ok){ st.className="warn"; st.textContent="✕ "+REC_MSG[rec.err]; m.el.remove(); checking=false; markCheck("mic",btn,false); return; }
+  recReset(); segStart({n:0}); st.textContent="録音中… 4秒間「よろしくお願いします」と声に出してください";
+  const t=setInterval(()=>m.set(rec.level),80);
+  await sleep(4000); segStop(); clearInterval(t);
+  const w=buildWav(); micClose(); recReset(); m.el.remove();
+  const peak=w.marks[0]?w.marks[0].peak:0;
+  if(peak<0.01){ st.className="warn"; st.textContent="✕ "+REC_MSG.quiet; markCheck("mic",btn,false); }
+  else{ st.className=""; st.style.color="var(--ok)"; st.textContent="✓ 録音できました。再生して自分の声が聞こえれば準備OKです。"; markCheck("mic",btn,true); }
+  box.append(el("audio",{controls:"",src:URL.createObjectURL(w.blob)}));
+  checking=false;
+}
+function unlockVoice(){ try{ if(state.set.voice&&"speechSynthesis" in window){ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(" "); u.volume=0; speechSynthesis.speak(u); } }catch(e){} }
+
+/* ---------- ② 面接中 ---------- */
+let R={};
+function renderRun(){
+  document.body.classList.add("running");
+  const v=$("#vPractice"); v.textContent="";
+  R.dots=el("div",{class:"dots","aria-hidden":"true"}); iv.plan.forEach(()=>R.dots.append(el("i")));
+  R.meta=el("span",{class:"meta"});
+  R.tag=el("div",{class:"qtag"}); R.q=el("p",{class:"qtext"});
+  R.stage=el("div",{class:"stage"},el("div",{class:"av",html:AVATAR}),el("div",{class:"bubble"},R.tag,R.q));
+  R.whoT=el("p",{class:"who","aria-live":"polite"});
+  R.mic=el("button",{class:"mic wait",type:"button",onclick:mainAction});
+  R.timer=el("div",{class:"timer",text:"0:00"});
+  R.zbarI=el("i"); R.zbar=el("div",{class:"zbar"},el("span",{class:"ok"}),R.zbarI);
+  R.hint=el("p",{class:"hint"}); R.err=el("div",{class:"alert",hidden:""});
+  add(v,el("div",{class:"run"},
+    el("div",{class:"rtop"},el("button",{class:"x",type:"button","aria-label":"面接を中断する",onclick:()=>{ if(confirm("面接を中断しますか？ ここまでの答えは録音として残ります。")) stopIv(); }},"×"),R.dots,R.meta),
+    R.stage, R.whoT,
+    el("div",{class:"micwrap"},R.err,R.mic,R.timer,el("div",{class:"zone"},R.zbar,el("div",{class:"zlab"},el("span",{text:"0秒"}),el("span",{text:"30〜60秒がちょうどいい"}),el("span",{text:"120秒"}))),R.hint,
+      el("div",{class:"rbtns"},el("button",{class:"btn",type:"button",onclick:()=>{ if(iv.phase==="answer") return; const q=QS[iv.plan[iv.idx]-1]; speak(iv.follow||`質問${q.n}番。${q.q}`); }},"もう一度聞く")))));
+  updMeta();
+}
+function updMeta(){
+  if(!R.dots) return;
+  [...R.dots.children].forEach((d,i)=>{ d.className=i<iv.idx?"on":i===iv.idx?"now":""; });
+  R.meta.textContent=`${Math.min(iv.idx+1,iv.plan.length)}/${iv.plan.length}問・録音 ${fmtT(rec.len/OUT_SR)}`;
+  R.meta.classList.toggle("warn",rec.len/OUT_SR>540);
+}
+function setSpeaking(on,label){ R.stage.classList.toggle("talk",on); R.whoT.textContent=label; }
+function showQ(n,text,follow){
+  R.tag.className="qtag"+(follow?" follow":""); R.tag.textContent="";
+  if(follow) R.tag.append("さらに質問（深掘り）"); else R.tag.append(el("span",{class:"num",text:String(n)}),"番の質問");
+  R.q.textContent=text;
+}
+async function startIv(){
+  if(iv.on) return;
+  const eb=$("#startErr"); if(eb){ eb.hidden=true; }
+  if(ENV_BAD||!CAN_REC){ if(eb){ eb.hidden=false; eb.textContent=ENV_BAD||"このブラウザでは録音できません。"; } return; }
+  unlockVoice();
+  const ok=await micOpen();
+  if(!ok){ if(eb){ eb.hidden=false; eb.textContent=REC_MSG[rec.err]; eb.scrollIntoView({block:"center"}); } return; }
+  const orderSel=arr=>{ const tl=[CFG.last,...(CFG.tail||[])], rk=CFG.rank||(n=>n); return [...arr.filter(n=>!tl.includes(n)).sort((x,y)=>rk(x)-rk(y)),...tl.filter(n=>arr.includes(n))]; };
+  let plan=state.set.src==="sel"&&state.sel.length?orderSel([...state.sel]):planRandom(state.set.count);
+  recReset();
+  Object.assign(iv,{on:true,plan,idx:0,phase:"speak",follow:null,t0:Date.now()});
+  state.answers={}; state.times={}; state.session={at:new Date().toISOString(),order:[],audio:true}; save();
+  renderRun(); scrollTo({top:0}); clearInterval(iv.meta); iv.meta=setInterval(updMeta,500);
+  setMain("wait");
+  showQ(0,"これから面接を始めます。よろしくお願いします。",true); R.tag.textContent="あいさつ";
+  setSpeaking(true,"面接官が話しています"); await speak("これから面接を始めます。よろしくお願いします。"); setSpeaking(false,"");
+  if(!iv.on) return;
+  await sleep(400); askCurrent();
+}
+async function askCurrent(){
+  if(!iv.on) return;
+  const q=QS[iv.plan[iv.idx]-1]; iv.follow=null; iv.phase="speak"; setMain("wait");
+  state.session.order.push({n:q.n,follow:null}); save(); updMeta();
+  showQ(q.n,q.q,false); idleAnswer();
+  setSpeaking(true,"面接官が話しています"); await speak(`質問${q.n}番。${q.q}`); setSpeaking(false,"");
+  if(iv.on) startTurn();
+}
+function idleAnswer(){ R.timer.textContent="0:00"; R.timer.classList.remove("over"); R.zbarI.style.width="0"; R.zbar.classList.remove("over"); R.mic.style.setProperty("--lv",0); R.err.hidden=true; }
+function setMain(mode){
+  R.mic.className="mic"; R.mic.disabled=false; R.mic.innerHTML="";
+  if(mode==="wait"){ R.mic.classList.add("wait"); R.mic.disabled=true; R.mic.innerHTML=ICON.mic+"<span>聞いてね</span>"; R.hint.textContent="面接官の質問を聞いてください"; }
+  else if(mode==="ready"){ R.mic.classList.add("ready"); R.mic.innerHTML=ICON.mic+"<span>タップして<br>答える</span>"; R.hint.textContent=TOUCH?"ボタンを押してから、声に出して答えましょう":"ボタンかスペースキーで答え始めます"; }
+  else if(mode==="answer"){ R.mic.classList.add("rec"); R.mic.innerHTML=ICON.stop+"<span>答え終わった</span>"; R.hint.textContent="録音中。結論から話してみよう"; }
+  else if(mode==="busy"){ R.mic.classList.add("wait"); R.mic.disabled=true; R.mic.innerHTML="<span>記録中…</span>"; }
+}
+function mainAction(){ if(iv.phase==="ready") beginAnswer(); else if(iv.phase==="answer") nextStep(); }
+function startTurn(){ iv.phase="ready"; setMain("ready"); setSpeaking(false,"あなたの番です"); }
+function updAns(){
+  if(iv.phase!=="answer") return;
+  R.mic.style.setProperty("--lv",Math.min(1,Math.sqrt(rec.level)*3).toFixed(3));
+  let msg="";
+  if(rec.err) msg=REC_MSG[rec.err];
+  else if(rec.ctx&&rec.ctx.state==="suspended") msg="録音が一時停止しています。画面をタップしてください。";
+  else if((Date.now()-iv.turnT0)>6000&&rec.peak<0.008) msg=REC_MSG.quiet;
+  R.err.hidden=!msg; R.err.textContent=msg;
+}
+function beginAnswer(){
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(rec.ctx&&rec.ctx.state==="suspended") rec.ctx.resume().catch(()=>{});
+  iv.phase="answer"; iv.turnT0=Date.now(); setMain("answer"); setSpeaking(false,"録音しています");
+  segStart({n:QS[iv.plan[iv.idx]-1].n,follow:iv.follow});
+  clearInterval(iv.timer); iv.timer=setInterval(()=>{ const s=(Date.now()-iv.turnT0)/1000; R.timer.textContent=fmtT(s); R.timer.classList.toggle("over",s>90); R.zbar.classList.toggle("over",s>90); R.zbarI.style.width=Math.min(100,s/120*100)+"%";
+    if(s>90) R.hint.textContent="90秒を超えました。そろそろまとめましょう"; else if(s>60) R.hint.textContent="いい長さです。まとめに入りましょう"; updAns(); },100);
+}
+function commit(){
+  clearInterval(iv.timer);
+  const q=QS[iv.plan[iv.idx]-1], sec=segStop();
+  state.answers[q.n]=(state.answers[q.n]||0)+1;
+  state.times[q.n]=(state.times[q.n]||0)+sec; save();
+}
+async function nextStep(){
+  if(!iv.on||iv.phase!=="answer") return;
+  iv.phase="busy"; setMain("busy");
+  commit();
+  const q=QS[iv.plan[iv.idx]-1];
+  if(state.set.follow&&!iv.follow&&FOLLOW[q.g]&&isMid(q.n)&&Math.random()<0.4){
+    const f=rnd(FOLLOW[q.g]); iv.follow=f; const o=state.session.order; o[o.length-1].follow=f; save();
+    showQ(q.n,f,true); idleAnswer(); setSpeaking(true,"面接官が話しています"); await speak(f); setSpeaking(false,"");
+    if(iv.on) startTurn(); return;
+  }
+  iv.idx++;
+  if(iv.idx>=iv.plan.length){ await finishIv(); return; }
+  await sleep(300); askCurrent();
+}
+async function wrapUp(){
+  const w=buildWav(); micClose();
+  LAST={blob:w.blob,marks:w.marks,total:w.total,session:state.session,round:state.round,theme:state.theme};
+  if(w.marks.length){
+    state.history=state.history||[]; state.history.unshift({at:state.session.at,q:new Set(w.marks.map(m=>m.n)).size,sec:Math.round(w.total),fol:w.marks.filter(m=>m.follow).length});
+    state.history=state.history.slice(0,60); save();
+    await IDB.put(CFG.key+"-last",LAST);
+  }
+}
+async function finishIv(){
+  showQ(0,"以上で面接を終わります。お疲れさまでした。",true); R.tag.textContent="おわり"; idleAnswer(); setMain("busy");
+  setSpeaking(true,"面接官が話しています"); await speak("以上で面接を終わります。お疲れさまでした。");
+  iv.on=false; clearInterval(iv.meta); await wrapUp(); renderDone();
+}
+async function stopIv(){
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(iv.phase==="answer") commit(); else rec.on=false;
+  iv.on=false; clearInterval(iv.timer); clearInterval(iv.meta);
+  await wrapUp();
+  if(LAST&&LAST.marks.length) renderDone(true); else renderIdle();
+}
+document.addEventListener("keydown",e=>{
+  if(!iv.on||(iv.phase!=="answer"&&iv.phase!=="ready")) return;
+  const tg=e.target&&e.target.tagName; if(tg==="INPUT"||tg==="TEXTAREA"||tg==="SELECT"||tg==="BUTTON") return;
+  if(e.code==="Space"||e.key==="Enter"){ e.preventDefault(); mainAction(); }
+});
+
+/* ---------- ③ おわり ---------- */
 function audioName(){ const d=new Date(LAST.session.at), p=n=>String(n).padStart(2,"0"); return `面接練習_${CFG.fileTag||"録音"}_${d.getMonth()+1}月${d.getDate()}日_${p(d.getHours())}${p(d.getMinutes())}.wav`; }
 async function saveAudio(msg){
   const name=audioName(), file=new File([LAST.blob],name,{type:"audio/wav"});
-  try{ if(navigator.canShare&&navigator.canShare({files:[file]})){ await navigator.share({files:[file],title:name}); msg.className="small"; msg.textContent="保存できたら、次は 2 へ進みます。"; return true; } }
+  try{ if(navigator.canShare&&navigator.canShare({files:[file]})){ await navigator.share({files:[file],title:name}); msg.className="small"; msg.textContent="保存できたら、次は 2 へ。"; return true; } }
   catch(e){ if(e&&e.name==="AbortError"){ msg.className="small warn"; msg.textContent="保存が取り消されました。もう一度押してください。"; return false; } }
   const a=el("a",{href:URL.createObjectURL(LAST.blob),download:name}); document.body.append(a); a.click(); setTimeout(()=>a.remove(),1500);
-  msg.className="small"; msg.textContent="ダウンロードしました。次は 2 へ進みます。"; return true;
+  msg.className="small"; msg.textContent="ダウンロードしました。次は 2 へ。"; return true;
 }
 function audioSteps(){
   const li=[el("li",{class:"cur"}),el("li"),el("li"),el("li")];
   const go=i=>{ li.forEach((x,k)=>x.className=k<i?"ok":k===i?"cur":""); };
   const saveBtn=el("button",{class:"btn primary",type:"button"},"録音を保存する"), saveMsg=el("span",{class:"small"});
-  saveBtn.addEventListener("click",async()=>{ if(await saveAudio(saveMsg)){ saveBtn.className="btn done"; saveBtn.textContent="✓ 保存しました"; go(1); copyBtn.className="btn primary"; } });
   const copyBtn=el("button",{class:"btn",type:"button"},"依頼文をコピー"), copyMsg=el("span",{class:"small"});
-  copyBtn.addEventListener("click",async()=>{ const ok=await copyText(buildPrompt(audioSource()));
-    if(ok){ copyBtn.className="btn done"; copyBtn.textContent="✓ コピーしました"; copyMsg.className="small"; copyMsg.textContent="次は 3 の「Geminiを開く」を押します。"; go(2); openBtn.className="btn primary"; }
-    else{ copyMsg.className="small warn"; copyMsg.textContent="コピーできませんでした。もう一度押してください。"; } });
   const openBtn=el("a",{class:"btn",href:"https://gemini.google.com/app",target:"_blank",rel:"noopener"},"Geminiを開く ↗");
+  saveBtn.addEventListener("click",async()=>{ if(await saveAudio(saveMsg)){ saveBtn.className="btn done"; saveBtn.textContent="✓ 保存しました"; go(1); copyBtn.className="btn primary"; } });
+  copyBtn.addEventListener("click",async()=>{ const ok=await copyText(buildPrompt(audioSource()));
+    if(ok){ copyBtn.className="btn done"; copyBtn.textContent="✓ コピーしました"; copyMsg.className="small"; copyMsg.textContent="次は 3 へ。"; go(2); openBtn.className="btn primary"; }
+    else{ copyMsg.className="small warn"; copyMsg.textContent="コピーできませんでした。もう一度押してください。"; } });
   openBtn.addEventListener("click",()=>{ go(3); openBtn.className="btn done"; });
-  li[0].append(el("span",{class:"n",text:"1"}),el("h3",{text:"録音を保存する"}),el("div",{class:"body"},
-    el("span",{text:"あなたの答えだけをまとめた音声ファイルです。"}),
-    el("div",{class:"ctl"},saveBtn,saveMsg),
-    TOUCH?path(["「録音を保存する」","共有メニューの「ファイルに保存」（Androidはダウンロード）"]):null));
-  li[1].append(el("span",{class:"n",text:"2"}),el("h3",{text:"依頼文をコピーする"}),el("div",{class:"body"},
-    el("span",{text:"どの質問への答えが録音のどこにあるかが入った依頼文です。"}),el("div",{class:"ctl"},copyBtn,copyMsg)));
+  li[0].append(el("span",{class:"n",text:"1"}),el("h3",{text:"録音を保存する"}),el("div",{class:"body"},el("span",{text:"あなたの答えだけをまとめた音声ファイルです。"}),el("div",{class:"ctl"},saveBtn,saveMsg),TOUCH?path(["共有メニュー","「ファイルに保存」（Androidはダウンロード）"]):null));
+  li[1].append(el("span",{class:"n",text:"2"}),el("h3",{text:"依頼文をコピーする"}),el("div",{class:"body"},el("span",{text:"どの質問への答えが録音のどこにあるかが入っています。"}),el("div",{class:"ctl"},copyBtn,copyMsg)));
   li[2].append(el("span",{class:"n",text:"3"}),el("h3",{text:"Geminiに録音と依頼文を送る"}),el("div",{class:"body"},openBtn,
-    path(TOUCH?["入力欄の「＋」","「ファイル」","保存した録音を選ぶ","入力欄を長押し →「ペースト」","送信"]:["入力欄の「＋」","「ファイルをアップロード」","保存した録音を選ぶ","入力欄に貼り付け（Ctrl+V）","送信"]),
-    el("span",{class:"small",text:"録音を聞いたGeminiが、フィードバックを「PDFファイル」にして返してくれます（少し時間がかかります）。"})));
+    path(TOUCH?["入力欄の「＋」","「ファイル」","保存した録音","入力欄を長押し →「ペースト」","送信"]:["入力欄の「＋」","「ファイルをアップロード」","保存した録音","貼り付け（Ctrl+V）","送信"]),
+    el("span",{class:"small",text:"録音を聞いたGeminiが、フィードバックを「PDFファイル」で返してくれます。"})));
   li[3].append(el("span",{class:"n",text:"4"}),el("h3",{text:"できたPDFを保存する"}),el("div",{class:"body"},
-    path(TOUCH?["返答の中のPDFファイルをタップ","ダウンロード（iPhoneは共有 →「ファイルに保存」）"]:["返答の中のPDFファイル","ダウンロード"]),
-    el("div",{class:"alert",style:"font-size:13px"},el("b",{text:"うまくいかないとき（同じ画面で送るだけ）"}),el("br"),
-      "「音声を添付して」と返ってきた → 録音ファイルを添付し忘れています。3 をやり直す",el("br"),
+    path(TOUCH?["返答の中のPDFをタップ","ダウンロード（iPhoneは共有 →「ファイルに保存」）"]:["返答の中のPDF","ダウンロード"]),
+    el("div",{class:"alert",style:"font-size:13px;background:var(--surface);color:var(--ink)"},el("b",{text:"うまくいかないとき（同じ画面で送るだけ）"}),el("br"),
+      "「音声を添付して」と返ってきた → 3 で録音を添付し忘れています",el("br"),
       "PDFが出てこない →「PDFファイルとして出力して」",el("br"),
       "文字が□や？になる →「日本語フォントでPDFを作り直して」",el("br"),
       "2枚以上になる →「A4の1枚に収めて作り直して」")));
   return el("ol",{class:"steps"},...li);
 }
+function confetti(box){ const cs=["var(--accent)","var(--gold)","var(--ok)","var(--rec)"]; for(let i=0;i<26;i++) box.append(el("i",{style:`left:${Math.random()*100}%;background:${cs[i%4]};animation-delay:${Math.random()*.35}s;transform:rotate(${Math.random()*90}deg)`})); }
 function renderDone(stopped,reopened){
   if(!LAST){ renderIdle(); return; }
+  document.body.classList.remove("running");
   setView("practice");
   const v=$("#vPractice"); v.textContent="";
   const mk=LAST.marks, fol=mk.filter(m=>m.follow).length, qs=new Set(mk.map(m=>m.n)).size;
-  const quiet=mk.filter(m=>m.peak<0.01).map(m=>m.n);
+  const quiet=[...new Set(mk.filter(m=>m.peak<0.01).map(m=>m.n))];
   const warns=[];
-  if(LAST.total>600) warns.push(`録音が${fmtT(LAST.total)}あります。Geminiの無料版では10分までしか読み込めないことがあります。次からは質問の数を減らしてください。`);
-  if(quiet.length) warns.push(`${[...new Set(quiet)].join("・")}番の答えは、声がほとんど録音されていません。下で再生して確かめてください。`);
-  v.append(el("div",{class:"card done"},
-    el("h2",{text:reopened?"前回の録音":stopped?"面接を中断しました":"おつかれさまでした"}),
-    el("p",{class:"small",style:"margin:4px 0 0",text:"下の4つの手順で、GeminiにフィードバックのPDFを作ってもらいましょう。"}),
+  if(LAST.total>600) warns.push(`録音が${fmtT(LAST.total)}あります。Geminiの無料版では10分までしか読み込めないことがあります。次からは質問の数を減らしましょう。`);
+  if(quiet.length) warns.push(`${quiet.join("・")}番の答えは、声がほとんど録音されていません。下で再生して確かめてください。`);
+  const cele=el("div",{class:"cele","aria-hidden":"true"});
+  const st=streak();
+  add(v,el("div",{class:"done"},cele,
+    el("h2",{text:reopened?"前回の録音":stopped?`${qs}問まで答えました`:`${qs}問、答えきった！`}),
+    el("p",{class:"small",style:"margin:0",text:reopened?"下の手順で、Geminiにフィードバックを作ってもらいましょう。":st>1?`${st}日連続で練習中。下の4つの手順でフィードバックを受け取りましょう。`:"下の4つの手順で、Geminiにフィードバックを作ってもらいましょう。"}),
     el("div",{class:"stats"},
-      el("div",{class:"stat"},el("b",{text:`${qs}問`}),el("span",{text:"答えた質問"})),
+      el("div",{class:"stat"},el("b",{},String(qs),el("small",{text:"問"})),el("span",{text:"答えた質問"})),
       el("div",{class:"stat"},el("b",{text:fmtT(LAST.total)}),el("span",{text:"録音の長さ"})),
-      el("div",{class:"stat"},el("b",{text:`${fol}回`}),el("span",{text:"深掘りの質問"}))),
-    warns.length?el("div",{class:"alert",style:"margin-top:14px"},...warns.flatMap((w,i)=>i?[el("br"),w]:[w])):null,
-    el("div",{class:"player"},el("span",{class:"small",text:"録音を聞いて確かめる"}),el("audio",{controls:"",preload:"metadata",src:URL.createObjectURL(LAST.blob)})),
+      el("div",{class:"stat"},el("b",{},String(fol),el("small",{text:"回"})),el("span",{text:"深掘り"}))),
+    warns.length?el("div",{class:"alert",style:"margin-top:12px"},...warns.flatMap((w,i)=>i?[el("br"),w]:[w])):null,
+    el("div",{class:"player"},el("audio",{controls:"",preload:"metadata",src:URL.createObjectURL(LAST.blob)})),
     audioSteps(),
     el("details",{class:"review"},el("summary",{text:"録音の中身（どの質問がどこにあるか）"}),
       el("div",{class:"alist"},...mk.map(m=>el("div",{class:"aitem"},el("span",{class:"badge",text:String(m.n)}),el("div",{class:"q"},m.follow?`（深掘り）${m.follow}`:QS[m.n-1].q,el("small",{text:`${fmtT(m.start)}〜　約${Math.round(m.dur)}秒`})))))),
-    el("div",{class:"again"},el("button",{class:"btn",type:"button",onclick:renderIdle},"もう一度面接する"),el("button",{class:"btn ghost",type:"button",onclick:()=>setView("list")},"質問リストを見る"))));
-  scrollTo({top:0,behavior:"smooth"});
+    el("div",{class:"again"},el("button",{class:"btn primary",type:"button",onclick:renderIdle},"ホームに戻る"),el("button",{class:"btn ghost",type:"button",onclick:()=>setView("list")},"質問リストを見る"))));
+  scrollTo({top:0});
+  if(!reopened&&!matchMedia("(prefers-reduced-motion:reduce)").matches) confetti(cele);
 }
 function audioSource(){
   return {mode:"audio",round:LAST.round,theme:LAST.theme,at:LAST.session.at,
     items:LAST.marks.map(m=>({label:m.follow?`${m.n}番の深掘り`:`${m.n}番`,q:m.follow||QS[m.n-1].q,sec:Math.round(m.dur),start:m.start}))};
+}
+
+/* ---------- 記録 ---------- */
+function renderLog(){
+  const v=$("#vLog"); v.textContent="";
+  const hist=state.history||[], st=streak();
+  const days=new Set(hist.map(h=>dayKey(h.at)));
+  const week=el("div",{class:"week"}); const wd="日月火水木金土";
+  for(let i=6;i>=0;i--){ const d=new Date(); d.setDate(d.getDate()-i); week.append(el("div",{},el("i",{class:(days.has(dayKey(d))?"on":"")+(i===0?" today":"")}),wd[d.getDay()])); }
+  const total=hist.reduce((a,h)=>a+(h.sec||0),0);
+  add(v,
+    el("div",{class:"stats",style:"margin-top:0"},
+      el("div",{class:"stat fire"},el("b",{},String(st),el("small",{text:"日"})),el("span",{text:"連続で練習中"})),
+      el("div",{class:"stat"},el("b",{},String(hist.length),el("small",{text:"回"})),el("span",{text:"練習した"})),
+      el("div",{class:"stat"},el("b",{text:fmtT(total)}),el("span",{text:"答えた時間"}))),
+    el("h2",{class:"sec",text:"この1週間"}),week,
+    el("h2",{class:"sec",text:"これまでの練習"}),
+    hist.length?el("div",{class:"log"},...hist.map((h,i)=>{ const d=new Date(h.at);
+      return el("div",{class:"logi"},el("div",{class:"d"},el("b",{text:String(d.getDate())}),el("span",{text:`${d.getMonth()+1}月`})),
+        el("div",{class:"t"},`${h.q}問に答えた`,el("small",{text:`録音 ${fmtT(h.sec)}${h.fol?`・深掘り${h.fol}回`:""}・${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`})),
+        i===0?el("button",{class:"btn",type:"button",style:"padding:6px 12px;font-size:13px",onclick:async()=>{ const dd=await IDB.get(CFG.key+"-last"); if(dd&&dd.blob){ LAST=dd; renderDone(false,true); } }},"Geminiへ"):el("span")); }))
+      :el("div",{class:"empty",text:"まだ練習の記録がありません。1回目の面接をしてみましょう。"}));
 }
 async function copyText(t){
   try{ await navigator.clipboard.writeText(t); return true; }
@@ -888,12 +958,20 @@ function renderManual(){
     el("div",{class:"again"},el("button",{class:"btn ghost",type:"button",onclick:()=>{ if(confirm("入力した内容をすべて消して、新しい生徒の入力を始めますか？")){ state.manual=null; save(); renderManual(); } }},"入力をすべて消す"))));
 }
 
+
 /* ---------- 起動 ---------- */
-$("#eyebrow").textContent=`${CFG.school}｜${CFG.exam}　${CFG.format}`;
-if(CFG.manual) $("#tabManual").hidden=false;
-if(CFG.home){ $(".top").prepend(el("a",{class:"home",href:CFG.home},"← TOPへ戻る")); }
+(function(){
+  const r=document.documentElement.style;
+  if(CFG.accent) r.setProperty("--accent",CFG.accent);
+  if(CFG.soft) r.setProperty("--soft",CFG.soft);
+  const m=document.querySelector('meta[name="theme-color"]')||document.head.appendChild(el("meta",{name:"theme-color"})); m.content=CFG.accent||"#5a2d82";
+})();
+$("#eyebrow").textContent=`${CFG.school}｜${CFG.exam}`;
 $("#ttl").textContent=CFG.title;
+if(CFG.manual) $("#tabManual").hidden=false;
+if(CFG.home) $(".bar").prepend(el("a",{class:"home",href:CFG.home},"← TOPへ戻る"));
 renderIdle();
+
 </script>
 
 </body>
