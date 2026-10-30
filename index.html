@@ -1,0 +1,900 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>会計ファイナンス学科 面接セルフ練習（志望理由書版）</title>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* 白地の明るい画面に固定。Layout: 上部にタブ（面接練習／質問リスト）。面接練習は「はじめる → 面接中 → おわり」の3画面を切り替える。 */
+:root{
+  --bg:#ffffff; --panel:#f4f7f5; --line:#d9e1dc; --ink:#17201c; --muted:#5d6b64;
+  --accent:#2c6a57; --accent-ink:#ffffff; --accent-soft:#e2efe9; --warm:#b4641e; --warm-soft:#fbefe2; --rec:#d83f3f;
+  --display:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;
+  --body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+  --r:16px; color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.7;padding-inline:16px;padding-block:0 48px;margin:0}
+[hidden]{display:none!important}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:880px;margin:0 auto}
+/* ヘッダー */
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:22px 12px;border-bottom:1px solid var(--line)}
+.top .home{flex-basis:100%;font-size:13.5px;font-weight:700;color:var(--accent);text-decoration:none;margin-bottom:-4px}
+.top .eyebrow{font-size:12.5px;color:var(--muted);letter-spacing:.04em}
+.top h1{font-family:var(--display);font-weight:800;font-size:clamp(22px,3.6vw,30px);line-height:1.3;margin:2px 0 0}
+.tabs{display:flex;gap:4px;background:var(--panel);padding:4px;border-radius:999px}
+.tabs button{border:0;background:transparent;padding:8px 18px;border-radius:999px;cursor:pointer;font-size:14.5px;color:var(--muted);font-weight:700}
+.tabs button[aria-selected="true"]{background:var(--ink);color:#fff}
+main{padding-top:24px}
+/* 共通部品 */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:10px 18px;cursor:pointer;font-weight:700;font-size:15px;text-decoration:none;color:var(--ink);white-space:nowrap}
+.btn:hover{border-color:var(--ink)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.huge{font-size:19px;padding:16px 34px}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--muted)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.done{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.card{background:#fff;border:1.5px solid var(--line);border-radius:var(--r);padding:clamp(18px,3.5vw,32px)}
+.small{font-size:13px;color:var(--muted)}
+.warn{color:var(--warm)}
+kbd{font:inherit;font-size:12px;border:1.5px solid currentColor;border-radius:5px;padding:0 6px;opacity:.85;margin-left:4px}
+/* はじめる画面 */
+.hero h2{font-family:var(--display);font-weight:800;font-size:clamp(22px,3.4vw,28px);margin:0 0 6px;text-wrap:balance}
+.hero p{margin:0;color:var(--muted)}
+.flow{list-style:none;padding:0;margin:22px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;counter-reset:f}
+.flow li{background:var(--panel);border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.55;counter-increment:f;position:relative;padding-top:34px}
+.flow li::before{content:counter(f);position:absolute;top:10px;left:14px;font-family:var(--display);font-weight:800;color:var(--accent);font-size:17px}
+.flow li b{display:block;font-size:15px}
+@media (max-width:640px){.flow{gap:6px}.flow li{font-size:11.5px;padding:28px 8px 9px;line-height:1.45}.flow li::before{left:9px;top:7px}.flow li b{font-size:12.5px}.hero p{font-size:14.5px}}
+.setrow{display:flex;flex-wrap:wrap;gap:18px 28px;align-items:flex-end;margin-top:24px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field>span{font-size:13px;color:var(--muted);font-weight:700}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:12px;overflow:hidden}
+.seg button{border:0;background:#fff;padding:9px 14px;cursor:pointer;font-size:14.5px;line-height:1.3;text-align:center}
+.seg button+button{border-left:1.5px solid var(--line)}
+.seg button small{display:block;font-size:11.5px;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.seg button[aria-pressed="true"] small{color:#dff0e8}
+.sw{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:15px;padding:8px 0}
+.sw input{appearance:none;width:44px;height:26px;border-radius:999px;background:var(--line);position:relative;cursor:pointer;transition:background .15s;flex:none;margin:0}
+.sw input::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .15s;box-shadow:0 1px 2px rgba(0,0,0,.25)}
+.sw input:checked{background:var(--accent)}
+.sw input:checked::after{left:21px}
+.go{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:26px}
+details.more{margin-top:20px;border-top:1px solid var(--line);padding-top:14px}
+details.more summary{cursor:pointer;color:var(--muted);font-size:14px;font-weight:700}
+.moregrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:12px}
+.moregrid .wide{grid-column:1/-1}
+@media (max-width:560px){.moregrid{grid-template-columns:minmax(0,1fr)}}
+.moregrid input,.moregrid select,.moregrid textarea{border:1.5px solid var(--line);border-radius:10px;padding:9px 11px;background:#fff;width:100%;font-size:15px}
+.check{margin-top:14px;background:var(--panel);border-radius:12px;padding:12px 14px;font-size:14px}
+.notice{margin-top:16px;font-size:13px;color:var(--muted)}
+/* 面接中 */
+.run{display:flex;flex-direction:column;gap:18px}
+.prog{display:flex;align-items:center;gap:12px}
+.dots{display:flex;gap:5px;flex:1}
+.dots i{height:6px;flex:1;border-radius:3px;background:var(--line)}
+.dots i.on{background:var(--accent)}
+.dots i.now{background:var(--accent);opacity:.45}
+.prog .meta{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.qcard{background:var(--panel);border-radius:var(--r);padding:clamp(20px,4vw,36px);display:flex;flex-direction:column;gap:12px;min-height:200px}
+.qtag{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--accent);font-size:14px}
+.qtag .num{font-family:var(--display);font-size:26px;line-height:1}
+.qtag.follow{color:var(--warm)}
+.qtext{font-size:clamp(21px,3.2vw,30px);font-weight:700;line-height:1.55;margin:0;text-wrap:balance}
+.who{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+.who .av{width:34px;height:34px;border-radius:50%;background:#fff;display:grid;place-items:center;flex:none;position:relative}
+.who.talk .av::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2.5px solid var(--accent);animation:pulse 1.1s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.2}50%{opacity:1}}
+.answer{border:2px solid var(--accent);border-radius:var(--r);padding:18px 20px;display:flex;flex-direction:column;gap:12px}
+.answer.idle{border-color:var(--line);opacity:.6}
+.ahead{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.recdot{width:11px;height:11px;border-radius:50%;background:var(--rec);animation:pulse 1.1s infinite}
+.answer.idle .recdot{animation:none;background:var(--line)}
+.timer{font-family:var(--display);font-weight:800;font-size:34px;line-height:1;font-variant-numeric:tabular-nums;margin-left:auto}
+.timer.over{color:var(--warm)}
+.tbar{height:8px;border-radius:4px;background:var(--panel);position:relative;overflow:hidden}
+.tbar i{position:absolute;inset:0 auto 0 0;background:var(--accent);width:0}
+.tbar.over i{background:var(--warm)}
+.tbar b{position:absolute;top:0;bottom:0;width:2px;background:var(--ink);opacity:.3}
+.tlabels{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:-6px}
+.live{font-size:16px;line-height:1.7;min-height:3.4em;max-height:9em;overflow-y:auto;color:var(--ink)}
+.live .interim{color:var(--muted)}
+.live:empty::before{content:"話すと、ここに文字が出ます";color:var(--muted)}
+.ctl{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.ctl .btn.huge{flex:1 1 260px}
+/* おわり */
+.done h2{font-family:var(--display);font-weight:800;font-size:clamp(22px,3.4vw,28px);margin:0}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.stat{background:var(--panel);border-radius:12px;padding:10px 16px;min-width:120px}
+.stat b{display:block;font-family:var(--display);font-size:26px;line-height:1.1;font-variant-numeric:tabular-nums}
+.stat span{font-size:12.5px;color:var(--muted)}
+.steps{list-style:none;padding:0;margin:22px 0 0;display:flex;flex-direction:column;gap:12px}
+.steps li{display:grid;grid-template-columns:44px 1fr;gap:4px 14px;align-items:start;border:1.5px solid var(--line);border-radius:14px;padding:16px}
+.steps li.cur{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.steps li.ok{opacity:.7}
+.steps .n{grid-row:1/3;width:44px;height:44px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:19px}
+.steps li.ok .n{background:var(--accent)}
+.steps h3{margin:0;font-size:16.5px}
+.steps .body{display:flex;flex-direction:column;gap:8px;align-items:flex-start;font-size:14.5px}
+.steps .path{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.steps .path span{background:var(--panel);border-radius:6px;padding:2px 9px;font-weight:700;font-size:13.5px}
+.steps .path i{font-style:normal;color:var(--muted)}
+details.review{margin-top:18px;border:1.5px solid var(--line);border-radius:14px;padding:12px 16px}
+details.review summary{cursor:pointer;font-weight:700}
+.alist{display:flex;flex-direction:column;gap:14px;margin-top:14px}
+.aitem{display:grid;grid-template-columns:auto 1fr;gap:6px 12px}
+.aitem .badge{font-family:var(--display);font-weight:800;width:34px;height:34px;border-radius:9px;background:var(--accent);color:#fff;display:grid;place-items:center}
+.aitem .q{font-weight:700;font-size:14.5px}
+.aitem .q small{color:var(--muted);font-weight:400;margin-left:6px}
+.aitem textarea{grid-column:2;border:1.5px solid var(--line);border-radius:10px;padding:9px 11px;min-height:76px;resize:vertical;font-size:14.5px;line-height:1.6}
+.again{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+/* 質問リスト */
+.ltools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
+.ltools .count{margin-left:auto;font-size:13.5px;color:var(--muted)}
+.lgroup{margin-top:22px}
+.lgroup h3{font-size:14px;color:var(--muted);letter-spacing:.06em;margin:0 0 8px}
+.qitem{display:grid;grid-template-columns:auto 1fr auto;gap:2px 12px;align-items:start;padding:12px 4px;border-top:1px solid var(--line)}
+.qitem .badge{font-family:var(--display);font-weight:800;width:36px;height:36px;border-radius:9px;background:var(--panel);display:grid;place-items:center;font-size:17px}
+.qitem.sel .badge{background:var(--accent);color:#fff}
+.qitem .t{padding-top:5px}
+.star{color:var(--warm);font-size:12px;font-weight:700;margin-left:6px;white-space:nowrap}
+.qitem input{width:22px;height:22px;accent-color:var(--accent);margin-top:7px;cursor:pointer}
+.qitem details{grid-column:2/4;font-size:13.5px;color:var(--muted)}
+.qitem summary{cursor:pointer;width:max-content}
+.qitem details p{margin:4px 0 0}
+.lfoot{position:sticky;bottom:12px;margin-top:20px;display:flex;justify-content:center}
+.meter{display:inline-flex;gap:2px;align-items:flex-end;height:18px}
+.meter i{width:4px;background:var(--line);border-radius:1px}
+.meter i:nth-child(1){height:5px}.meter i:nth-child(2){height:7px}.meter i:nth-child(3){height:9px}.meter i:nth-child(4){height:11px}.meter i:nth-child(5){height:13px}.meter i:nth-child(6){height:15px}.meter i:nth-child(7){height:17px}.meter i:nth-child(8){height:18px}
+.meter i.on{background:var(--accent)}
+.mh2{font-family:var(--display);font-weight:800;font-size:clamp(20px,3.2vw,26px);margin:0}
+.mh3{font-size:15px;margin:24px 0 10px;padding-left:8px;border-left:4px solid var(--accent);line-height:1.3}
+.mrows{display:flex;flex-direction:column;gap:12px}
+.mrow{border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.mhead{display:flex;justify-content:space-between;align-items:center}
+.mhead .btn{padding:4px 10px;font-size:13px}
+.mrow select,.mrow input,.mrow textarea,#vManual .moregrid input,#vManual .moregrid textarea,#vManual .field>textarea{border:1.5px solid var(--line);border-radius:10px;padding:9px 11px;background:#fff;width:100%;font-size:15px;line-height:1.6}
+.mrow select{font-weight:700}
+.mgrid{display:grid;grid-template-columns:150px 1fr;gap:10px}
+@media (max-width:560px){.mgrid{grid-template-columns:minmax(0,1fr)}}
+.tabs button[hidden]{display:none}
+.meter2{height:10px;border-radius:5px;background:var(--panel);overflow:hidden;flex:1}
+.meter2 i{display:block;height:100%;width:0;background:var(--accent);transition:width .08s linear}
+.meter2 i.lo{background:var(--line)}
+.mrow2{display:flex;align-items:center;gap:10px}
+.mrow2 .small{white-space:nowrap}
+.check .meter2{margin-top:8px}
+.prog .meta.warn{color:var(--warm);font-weight:700}
+.player{margin-top:16px;display:flex;flex-direction:column;gap:6px}
+.player audio{width:100%}
+.alert{background:var(--warm-soft);color:#7a3d0a;border-radius:12px;padding:10px 14px;font-size:14px;line-height:1.6}
+.btn.go{background:var(--ink);border-color:var(--ink)}
+@media (max-width:640px){
+  .ctl.bar{position:sticky;bottom:0;background:#fff;padding:10px 0 calc(10px + env(safe-area-inset-bottom,0px));margin-bottom:-10px;border-top:1px solid var(--line);z-index:5}
+  .ctl.bar .btn.huge{flex:1 1 100%;font-size:18px;padding:16px}
+  .ctl.bar .btn:not(.huge){flex:1;padding:9px 10px;font-size:14px}
+  .qcard{min-height:0;padding:18px}
+  .qtext{font-size:21px}
+  .answer{padding:14px 16px}
+  .timer{font-size:28px}
+  .go .btn{flex:1 1 auto}
+  .go .btn.huge{flex:1 1 100%}
+}
+@media (hover:none){ kbd{display:none} }
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div><div class="eyebrow" id="eyebrow"></div><h1 id="ttl"></h1></div>
+    <nav class="tabs" role="tablist" aria-label="表示の切り替え">
+      <button role="tab" id="tabPractice" aria-selected="true" type="button">面接練習</button>
+      <button role="tab" id="tabList" aria-selected="false" type="button">質問リスト</button>
+      <button role="tab" id="tabManual" aria-selected="false" type="button" hidden>手入力でFB</button>
+    </nav>
+  </header>
+  <main>
+    <section id="vPractice"></section>
+    <section id="vList" hidden></section>
+    <section id="vManual" hidden></section>
+  </main>
+</div>
+
+<script>
+const UNIV=`立教大学 経済学部 会計ファイナンス学科（2027年度入試）
+- 入試方式：自由選抜入試（経済学部3学科（経済学科・経済政策学科・会計ファイナンス学科）で約20名、専願）。英語の外部試験スコアが出願条件とされる（基準は入試要項で確認）。
+- 1次選考：書類審査。志望理由書（約2,000字・手書き。これまでの実績や集中して取り組んできたことと、入学後に何をどのように学びたいか）、調査書、英語資格の証明書など。
+- 2次選考：総合科目（現代の政治・経済への知識と関心、基礎的な数学的分析力を問う記述式。課題文や図表を読む）と、個人面接（約15分。志望理由、入学後の具体的な計画、高校時代の活動などを深く聞かれる）。
+- 学科の特色：会計（企業活動の成績を示す）とファイナンス（企業の資金の流れや金融市場）の両面から現実の経済を分析する。1年次から簿記・会計学・ミクロ／マクロ経済学入門などを学び、財務会計論、管理会計論、原価計算論、会計監査論、租税法、国際会計論、コーポレートファイナンス、証券・金融系科目、計量経済学などへ段階的に進む。公認会計士・税理士・証券アナリストなどを目指す学生への支援がある。基礎ゼミナール（1年次）から少人数のゼミナール、企業から出される課題に取り組む課題解決演習、インターンシップ、海外での短期留学プログラム、英語による経済科目がある。
+- 経済学部のアドミッション・ポリシーの要点：経済学の専門知識は不要だが、高校の全教科への真面目な取り組みと国語力・外国語（英語の4技能）が必要。歴史・社会・数学への関心と一定の能力。社会問題への関心、高い倫理観、社会的弱者への思いやり、偏見や差別意識を持たないこと、豊かな感性と社会常識、積極的に挑戦する意欲。高校の学習や行事、部活動・生徒会・ボランティアなどに真剣に取り組んだ経験。自由選抜入試は、提出書類と面接などで多面的・総合的に評価する。
+- 大学：キリスト教に基づく人間教育を行う。
+# この受験生の志望理由書の要点（面接ではこの内容を深掘りされる。答えとの一貫性も評価する）
+- きっかけ：高校在学中のフィリピン・マニラでの8週間の語学留学で、高層ビル群のすぐ隣に貧困地区がある対比を見て、経済格差の根底に「お金の循環」の構造的な問題があると考えた。
+- その後、自ら志願してカンボジアの現地研修に参加。設備のない学校で学ぶ子どもたちの夢と、リサイクル品で学校を建てるなど工夫して生きる人々に出会い、一過性の寄付やボランティアではなく、現地の人が主体的に豊かになる「持続可能な経済的仕組み」が必要だと考えた。
+- 実践：現地の起業家の協力を得て、カンボジアの学校や農家が生産に関わるフェアトレードのハーブティーを日本で販売し、利益を現地の教育環境に還元するプロジェクトを個人で立ち上げた。ストーリーだけでは売れず、自分でパッケージをデザインしたオリジナル商品を開発。試飲、チラシ、SNS、価格設定、会計まで一人で担った。食品表示法などを独学したが、書類不備で輸入が進まず、空港の税関にも出向いた。仕入れ・価格・利益・寄付の割合を感覚で決める限界を感じ、会計とファイナンスの知識の必要性を痛感した。
+- 将来：社会課題を解決する経営者。住環境・空間プロデュースを中心とした環境デザイン会社を起業し、適切な利益と従業員への還元を両立する健全な経営をしたい。海外とも協働したい。
+- 本学科を選んだ理由（本人の記述）：経済学の基礎の上に会計・ファイナンス・マネジメントを横断して学べる。1年次の少人数「プロセミナール」、2年次からの「ビジネス・リーダーシップ・プログラム」、英語で学ぶ「International Program for Business」に挑戦したい。※ビジネス・リーダーシップ・プログラムは経営学部のプログラムであり、ほかの2つも経済学部の制度名として確認できていない。面接でこれらを説明できるか、経済学部の実際の学び（基礎ゼミナール、課題解決演習、英語による経済科目、短期留学など）を正しく理解しているかを確かめ、誤りがあれば具体的に指摘する。
+- 協働の経験：マニラで多様な国籍の仲間とグループワークに取り組み、相手の文化や立場を尊重して聞いたうえで自分の考えを論理的に伝え、役割分担を提案して合意形成に努めた。`;
+
+/* [グループ, 頻出(1/0), 質問, 見られる点, 答え方] */
+const QDATA=[
+ ["導入・人物",1,"1分程度で自己紹介をしてください。","話の構成力と第一印象。","名前→高校で力を入れたこと1つ→会計・ファイナンスへの関心、で締める。経歴の羅列にしない。"],
+ ["導入・人物",0,"高校生活で最も力を入れたことは何ですか。そこから何を学びましたか。","主体性と振り返る力（アドミッション・ポリシーの「体験」）。","行動→困難→工夫→学び。学びを大学での学びにつなげられると強い。"],
+ ["導入・人物",0,"あなたの長所と短所を教えてください。","自己理解。","長所は具体例を1つ。短所は改善の工夫まで言う。"],
+ ["志望理由",1,"会計やファイナンスに関心を持ったきっかけは何ですか。","動機の原体験。","いつ・どこで・何を見て関心を持ったか。ニュース、家族の仕事、簿記の学習、探究などの具体的な場面から。"],
+ ["志望理由",1,"経済学部の中でも、なぜ経済学科や経済政策学科ではなく、会計ファイナンス学科なのですか。","学科を選んだ理由の明確さ。","経済全体ではなく、企業の会計と資金の流れから経済を分析したい、など。3学科の違いを踏まえて言う。"],
+ ["志望理由",1,"数ある大学の中で、なぜ立教大学なのですか。","本学でなければならない理由。","会計とファイナンスの両方を経済学部で学べる点、少人数のゼミ、課題解決演習や短期留学など、具体的な特色を自分の目標と結ぶ。"],
+ ["志望理由",0,"他の大学の商学部や経営学部の会計系の学科と比べて、本学科の違いは何だと考えますか。","調べた深さ。","経済学の土台（ミクロ・マクロ）の上で会計とファイナンスを学ぶ点など、違いを1〜2点に絞って言う。"],
+ ["志望理由",0,"本学はキリスト教に基づく人間教育を行っています。このことについて、どう考えますか。","大学の理念への理解。","専門知識だけでなく、人としての倫理や他者への思いやりを学ぶ意味を、会計やお金を扱う仕事と結んで言う。"],
+ ["志望理由",0,"オープンキャンパスや説明会で印象に残ったことはありますか。","行動力と関心の具体性。","見た・聞いた具体的な場面→感じたこと→志望が強まった理由。"],
+ ["志望理由書・活動",1,"提出した志望理由書の内容を1分で説明してください。","書類の内容を要約して話す力。","これまでの実績や集中したこと→そこから生まれた関心→入学後に何をどう学ぶか、の順に短く。"],
+ ["志望理由書・活動",0,"志望理由書に書いた、これまで集中して取り組んできたことについて、詳しく教えてください。","活動の中身と自分の役割。","活動を1つに絞り、自分が何を考えてどう動いたか、結果はどうだったかを具体的に。"],
+ ["志望理由書・活動",0,"その活動で一番苦労したことは何ですか。どう乗り越えましたか。","困難への向き合い方。","困難→原因→工夫→結果→学び。自分の判断と行動を中心に話す。"],
+ ["志望理由書・活動",1,"入学後、何をどのように学びたいですか。4年間の計画を具体的に教えてください。","入学後の計画の具体性（志望理由書の項目）。","1年次（簿記・会計学・経済学の基礎）→2〜3年次（関心のある専門科目とゼミ）→4年次（研究や資格）と、時期ごとに言う。"],
+ ["志望理由書・活動",0,"簿記の学習経験はありますか。資格の勉強はしていますか。","学ぶ準備と意欲。","経験があれば級と、学んで分かったこと。なければ入学までにどう準備するかを言う。"],
+ ["会計・ファイナンスの基礎",1,"会計とファイナンスの違いを、あなたの言葉で説明してください。","学科の学びの基本の理解。","会計は企業活動の成績を記録・報告するもの、ファイナンスはお金をどう集め、どう使って価値を生むかを考えるもの、など。具体例を1つ添える。"],
+ ["会計・ファイナンスの基礎",0,"会計の情報は、誰のために、何のためにあるのだと思いますか。","会計の役割の理解。","投資家、銀行、取引先、従業員、国など、利用する人を挙げ、正しい判断のために必要だと説明する。"],
+ ["会計・ファイナンスの基礎",0,"貸借対照表と損益計算書は、それぞれ何を表していますか。","基本用語の理解。","貸借対照表は一時点の財産と借金の状態、損益計算書は一定期間のもうけ。知らなければ正直に言い、調べる姿勢を示す。"],
+ ["会計・ファイナンスの基礎",0,"企業が事業に必要なお金を集める方法には、どのようなものがありますか。","資金調達の理解。","株式の発行、銀行からの借り入れ、社債の発行など。それぞれの違い（返す必要があるか）に触れると良い。"],
+ ["会計・ファイナンスの基礎",0,"利益が出ているのに、会社が倒産してしまうことがあるのはなぜだと思いますか。","利益と現金の違いの理解。","売上がすぐに現金にならない（売掛金）など、利益と手元の資金のずれを説明する。"],
+ ["会計・ファイナンスの基礎",1,"粉飾決算などの会計不正は、なぜ起きると思いますか。防ぐには何が必要ですか。","倫理観（アドミッション・ポリシー）。","業績へのプレッシャーなどの原因と、監査・内部のチェック・一人ひとりの倫理の両面から防ぎ方を言う。"],
+ ["会計・ファイナンスの基礎",0,"公認会計士や税理士は、社会でどのような役割を果たしていると思いますか。","専門職の社会的役割の理解。","公認会計士は監査で企業の情報の信頼性を保証する、税理士は税の申告や相談を支える、など。社会の信頼を支える点を言う。"],
+ ["会計・ファイナンスの基礎",0,"株価は、何によって決まると思いますか。","金融市場への関心。","企業の業績や将来への期待、金利や景気、投資家の心理など、複数の要因を挙げる。"],
+ ["経済・社会への関心",1,"最近気になった経済や企業に関するニュースは何ですか。あなたの考えも教えてください。","社会への関心と自分の意見。","ニュースの要点→なぜ気になったか→自分の考え。会計やお金の流れの視点を入れられると強い。"],
+ ["経済・社会への関心",0,"金利が上がると、企業や家計にはどのような影響があると思いますか。","経済の基本的な仕組みの理解（総合科目）。","借りる側（住宅ローン・企業の借り入れ）と預ける側の両面から、良い影響と悪い影響を言う。"],
+ ["経済・社会への関心",0,"円安や円高は、日本の企業や私たちの生活にどのような影響を与えますか。","為替の理解。","輸出企業・輸入企業・消費者・旅行者など、立場によって影響が違うことを示す。"],
+ ["経済・社会への関心",0,"新NISAなどで、個人の資産形成への関心が高まっています。あなたはどう考えますか。","金融への関心と自分の意見。","メリットとリスクの両方を挙げ、金融の知識を学ぶことの大切さに結ぶ。"],
+ ["経済・社会への関心",0,"ESG（環境・社会・ガバナンス）への取り組みは、企業の価値とどう関係すると思いますか。","企業と社会の関係への関心。","短期の利益だけでなく、長期の価値や投資家の評価につながる点を、具体的な企業例とともに。"],
+ ["経済・社会への関心",0,"社会的に弱い立場の人にとって、お金や金融の知識はどんな意味を持つと思いますか。","社会的弱者への思いやり（アドミッション・ポリシー）。","詐欺や借金の被害を防ぐ、生活を立て直す、など。知識が人を守る視点で答える。"],
+ ["経済・社会への関心",0,"グラフやデータを読み取るとき、あなたが気をつけていることは何ですか。","基礎的な数学的分析力（総合科目）。","単位や期間、比べ方（割合か実数か）、見かけだけの関係に注意する、など具体的に。"],
+ ["学科の学び",0,"本学科の科目の中で、特に学びたいものは何ですか。それはなぜですか。","学科理解。","財務会計論、管理会計論、コーポレートファイナンス、計量経済学などから1つ選び、関心のきっかけと将来に結ぶ。"],
+ ["学科の学び",0,"ゼミでは、どのようなテーマを研究したいですか。","学びの見通し。","関心のあるテーマを1つに絞り、調べたい問いの形で言う。"],
+ ["学科の学び",0,"短期留学や英語で学ぶ経済の科目など、国際的な学びに関心はありますか。","英語力と国際性（アドミッション・ポリシー）。","英語の学習状況と、国際会計基準やグローバル企業など、会計・金融と英語を結ぶ目的を言う。"],
+ ["学科の学び",0,"企業から出される課題に取り組む演習やインターンシップで、どんなことに挑戦したいですか。","実践への意欲。","挑戦したいことを1つ挙げ、高校での経験とのつながりを言う。"],
+ ["学科の学び",0,"数学や統計は得意ですか。大学での学びにどう生かしますか。","数学への関心と能力（アドミッション・ポリシー）。","得意・不得意を正直に言い、データ分析や計量経済学での必要性と、入学までの準備を言う。"],
+ ["将来像",1,"卒業後はどのような仕事に就きたいですか。","目標と学びのつながり。","公認会計士、金融機関、企業の経理・財務など。仕事→なぜ→そのために本学科で学ぶこと、の順に。"],
+ ["将来像",0,"10年後、どのような社会人になっていたいですか。","長期の展望。","仕事の内容だけでなく、社会や人にどう役立ちたいかまで言う。"],
+ ["人物・協働",0,"考えの違う人と一緒に取り組むとき、どんなことを大切にしていますか。","多様な人と学ぶ姿勢（アドミッション・ポリシー）。","実際の場面→相手の意見の理由を聞いたか→どうまとめたか。偏見を持たずに受け止める姿勢を示す。"],
+ ["人物・協働",0,"これまでで一番大きな挑戦は何ですか。","挑戦する意欲（アドミッション・ポリシー）。","挑戦の内容→なぜ挑戦したか→結果→学び。失敗した挑戦でもよい。"],
+ ["締め",1,"最後に、言い残したことや伝えたいことはありますか。","熱意と締めくくり。","30秒以内で、志望の強さと入学後に取り組みたいことを一つ。"],
+ ["締め",0,"何か質問はありますか。","関心の深さ。","調べれば分かることは聞かない。入学後の学びに関わる具体的な質問を1つ用意する。"]
+ ,["志望理由書の深掘り",1,"マニラで高層ビルと貧困地区の対比を見て、なぜ「お金の循環」に問題があると考えたのですか。","問題意識の根拠と論理。","見た光景→そこから立てた問い→「お金がどこに流れ、どこに流れないか」と考えた理由、の順に。今の考えも加える。"]
+ ,["志望理由書の深掘り",0,"経済格差が生まれる原因について、今のあなたはどう考えていますか。","社会問題への理解の深さ。","教育、仕事、資金の借りやすさなど、複数の要因を挙げ、一つに決めつけない。"]
+ ,["志望理由書の深掘り",0,"カンボジアの研修に、自分から志願したのはなぜですか。","主体性と問題意識の連続性。","マニラで生まれた問いを確かめたかった、など、行動の理由を具体的に。"]
+ ,["志望理由書の深掘り",1,"一過性の寄付やボランティアでは足りないと考えたのはなぜですか。具体的に説明してください。","支援についての考えの深さ。","寄付が終わると続かない、現地の人が受け身になる、など。寄付やボランティアを否定するのではなく、それぞれの役割を認めたうえで言う。"]
+ ,["志望理由書の深掘り",1,"「持続可能な経済的仕組み」とは、具体的にどのようなものだと考えますか。","考えの具体性。","現地の人が作ったものが適正な価格で売れ、その利益が地域に残り続ける、など。ハーブティーの例で説明する。"]
+ ,["志望理由書の深掘り",1,"フェアトレードのハーブティーのプロジェクトについて、誰が作り、どのように日本に届き、利益がどう現地に還元されるのか、仕組みを説明してください。","事業の仕組みを説明する力。","生産→仕入れ→輸入→販売→利益→還元の流れを、1つずつ短く言う。"]
+ ,["志望理由書の深掘り",0,"最初はストーリーを伝えるだけでは売れなかったそうですね。なぜ売れなかったと分析しましたか。","経験から原因を考える力。","買う人の立場から見た理由（価格、味が分からない、自分ごとにならない等）→次にどう変えたか→結果。"]
+ ,["志望理由書の深掘り",1,"販売価格はどのように決めましたか。仕入れ値、利益、現地への還元の割合を教えてください。","数字で説明する力（会計への関心の裏付け）。","実際の金額や割合を言えるようにしておく。どう決めたか、何が難しかったかも添える。"]
+ ,["志望理由書の深掘り",0,"実際の売上や利益、現地に還元できた金額は、どのくらいでしたか。","成果を数字で示す力。","おおよその数字でよいので、売上・利益・還元額を言えるようにしておく。目標との差も言えると良い。"]
+ ,["志望理由書の深掘り",0,"輸入手続きがうまく進まなかったのは、具体的に何が原因でしたか。その経験から何を学びましたか。","失敗から学ぶ力。","原因（どの書類・どの手続きか）→どう対応したか→学び（企画と事業は違う、など）。"]
+ ,["志望理由書の深掘り",1,"「感覚で意思決定することに限界を感じた」とありますが、具体的にどの場面でそう感じましたか。会計の知識があれば、どう判断できたと思いますか。","志望理由の核心（なぜ会計・ファイナンスか）。","具体的な場面→感覚で決めた結果→会計の考え方（原価、利益率、損益分岐点など）を使えばどう判断できたか。"]
+ ,["志望理由書の深掘り",0,"このプロジェクトは、今どうなっていますか。大学に入ってからも続けますか。","継続性と入学後の計画。","現状を正直に言い、大学での学びを使ってどう発展させるかを言う。"]
+ ,["志望理由書の深掘り",1,"将来は住環境や空間をプロデュースする会社を起業したいそうですね。なぜ建築やデザインの学部ではなく、経済学部の会計ファイナンス学科なのですか。","将来像と学科選択の一貫性。","デザインそのものより、会社を健全に経営して続けるための力を身につけたい、など。会計・ファイナンスが経営に欠かせない理由と結ぶ。"]
+ ,["志望理由書の深掘り",0,"フェアトレードの活動と、住環境のデザイン会社を作りたいという夢は、どのようにつながっていますか。","経験と将来像のつながり。","「人々の生活をより良くする」「持続可能な仕組み」など、共通する軸を一言で言う。"]
+ ,["志望理由書の深掘り",0,"会社として利益を出すことと、従業員への還元や社会貢献のバランスを、経営者としてどう考えますか。","経営への考えと倫理観。","利益は続けるために必要、そのうえで還元する、など。ハーブティーで還元の割合を考えた経験と結ぶ。"]
+ ,["志望理由書の深掘り",1,"志望理由書に書いた「プロセミナール」「ビジネス・リーダーシップ・プログラム」「International Program for Business」は、それぞれどのような学びですか。","調べた内容の正確さ。","名前と、どの学部の制度かを大学の公式情報で必ず確かめておく（ビジネス・リーダーシップ・プログラムは経営学部のプログラム）。経済学部の実際の学び（基礎ゼミナール、課題解決演習、英語による経済科目、短期留学など）で説明できるようにする。"]
+ ,["志望理由書の深掘り",0,"マニラで多様な国籍の仲間と意見がぶつかったとき、どのように解決しましたか。具体的な場面を1つ教えてください。","協働する力（具体性）。","場面→意見の違い→自分がしたこと（聞く・伝える・役割を提案）→結果、の順に。"]
+ ,["志望理由書の深掘り",0,"フェアトレードには、価格が高くなりがちで広がりにくいという課題もあります。どう考えますか。","批判的な見方への対応力。","課題を認めたうえで、自分の経験（パッケージや試飲の工夫）や、価格以外の価値の伝え方で答える。"]
+];
+
+const FOLLOW={
+ "導入・人物":["その経験から、何を学びましたか。","具体的なエピソードを一つ教えてください。"],
+ "志望理由":["それは他の大学でもできるのではありませんか。","具体的には、本学科のどんなところですか。","なぜそう考えるようになったのですか。"],
+ "志望理由書・活動":["そのとき、あなた自身はどう動きましたか。","その経験を、入学後どの場面で生かしますか。","結果を数字で表すと、どのくらいですか。"],
+ "会計・ファイナンスの基礎":["具体的な例を挙げて説明してください。","なぜそう言えるのですか。","それは、どの立場の人にとっての話ですか。"],
+ "経済・社会への関心":["なぜそのようなことが起きていると思いますか。","あなたなら、どんな対策を考えますか。","別の立場から見ると、どう見えますか。"],
+ "学科の学び":["それを学ぶことで、何ができるようになりたいですか。","なぜそれに関心を持ったのですか。"],
+ "将来像":["そのために、大学4年間で何をしますか。","なぜその仕事なのですか。"],
+ "人物・協働":["実際にそうした経験はありますか。","うまくいかなかったときは、どうしましたか。"],
+ "志望理由書の深掘り":["それを数字で言うと、どのくらいですか。","そのとき、あなた自身はどう判断しましたか。","その経験を、本学科のどの学びにつなげますか。","もう一度やるとしたら、何を変えますか。"]
+};
+
+const CFG={
+ key:"rikkyo-af-s1", fileTag:"立教", title:"会計ファイナンス学科 面接セルフ練習（志望理由書版）",
+ school:"立教大学 経済学部 会計ファイナンス学科", exam:"自由選抜入試",
+ format:"個人面接 約15分（2次選考。総合科目もあり）",
+ themeLabel:"志望理由書の要旨", themePH:"例：探究で商品を販売した際の売上管理から会計に関心。入学後は財務会計とコーポレートファイナンスを学び、公認会計士を目指す。",
+ criteria:[["志望理由の具体性","なぜ会計・ファイナンスか、なぜ経済学科・経済政策学科ではなく会計ファイナンス学科か、なぜ立教大学か。他大学でも言える理由になっていないか。志望理由書との一貫性"],
+  ["学科理解と入学後の計画","1年次の簿記・会計学・経済学から専門科目・ゼミ・課題解決演習・短期留学へ進む学びを理解し、何をどのように学ぶかを具体的に計画しているか"],
+  ["会計・ファイナンスの基礎理解","会計とファイナンスの違い、財務諸表、資金調達など基本的な考え方を自分の言葉で説明できるか（専門知識は求められないが、学ぶ準備と関心の深さを見る）"],
+  ["経済・社会への関心と倫理観","経済ニュースへの関心と自分の意見、データの読み方、会計不正などへの倫理観、社会的弱者への思いやり、挑戦する意欲（アドミッション・ポリシー）"],
+  ["伝え方","結論から話す、具体例、回答の長さ、話す速さと言いよどみ"]],
+ must:[10,5,15], order:["会計・ファイナンスの基礎","志望理由書・活動","経済・社会への関心","志望理由","学科の学び","将来像","会計・ファイナンスの基礎","経済・社会への関心","導入・人物","人物・協働","学科の学び"],
+ defaultSel:[1,5,6,10,41,44,46,48,51,53,56,15,35,39], first:1, last:39, tail:[40], manual:true,
+ rank:n=>n<=14?n:n>=41?14+(n-40)/100:n
+};
+
+/* 出題の組み立て：志望理由書の深掘り（41〜58）を半分ほど入れ、残りを一般の質問から選ぶ */
+function planRandom(total){
+  const D="志望理由書の深掘り", mids=QS.filter(q=>isMid(q.n));
+  const out=[10,5].filter(n=>isMid(n));
+  const deep=shuffle(mids.filter(q=>q.g===D&&!out.includes(q.n)).map(q=>q.n));
+  out.push(...deep.slice(0,Math.max(1,Math.round((total-2)*0.45))));
+  const pool={}; mids.forEach(q=>{ if(q.g===D||out.includes(q.n)) return; (pool[q.g]=pool[q.g]||[]).push(q.n); });
+  for(const k in pool) pool[k]=shuffle(pool[k]);
+  for(const g of CFG.order){ if(out.length>=total-2) break; const n=pool[g]&&pool[g].shift(); if(n) out.push(n); }
+  const rank=CFG.rank;
+  return [CFG.first,...out.slice(0,Math.max(0,total-2)).sort((a,b)=>rank(a)-rank(b)),CFG.last];
+}
+
+</script>
+<script>
+const isMid=n=>n!==CFG.first&&(CFG.tail?(n!==CFG.last&&!CFG.tail.includes(n)):n<CFG.last);
+const QS=QDATA.map((r,i)=>({n:i+1,g:r[0],s:r[1],q:r[2],a:r[3],t:r[4]}));
+const N=QS.length;
+const $=s=>document.querySelector(s);
+const el=(tag,props={},...kids)=>{const n=document.createElement(tag);for(const[k,v] of Object.entries(props)){if(v==null)continue;if(k==="class")n.className=v;else if(k==="text")n.textContent=v;else if(k==="html")n.innerHTML=v;else if(k.startsWith("on"))n.addEventListener(k.slice(2),v);else n.setAttribute(k,v);}for(const k of kids)if(k!=null)n.append(k);return n;};
+function shuffle(a){ a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+const fmtT=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,"0")}`;
+
+/* ---------- 保存（このブラウザ内） ---------- */
+let state={sel:[...CFG.defaultSel],set:{count:8,voice:true,follow:true,src:"rand"},round:"1回目",theme:"",answers:{},times:{},session:null};
+try{ const s=JSON.parse(localStorage.getItem(CFG.key)||"null"); if(s) state=Object.assign(state,s,{set:Object.assign(state.set,s.set||{})}); }catch(e){}
+let svT; function save(){ clearTimeout(svT); svT=setTimeout(()=>{ try{localStorage.setItem(CFG.key,JSON.stringify(state));}catch(e){} },250); }
+
+/* ---------- 読み上げ ---------- */
+function pickVoice(){ try{ const vs=speechSynthesis.getVoices().filter(v=>/^ja/i.test(v.lang)); return vs.find(v=>/Google/.test(v.name))||vs[0]||null; }catch(e){ return null; } }
+try{ speechSynthesis.getVoices(); }catch(e){}
+function speak(text){
+  return new Promise(res=>{
+    const fallback=()=>setTimeout(res,Math.min(5000,500+text.length*90));
+    if(!state.set.voice||!("speechSynthesis" in window)){ fallback(); return; }
+    try{
+      speechSynthesis.cancel();
+      const u=new SpeechSynthesisUtterance(text); u.lang="ja-JP"; u.rate=1.0; const v=pickVoice(); if(v) u.voice=v;
+      let done=false; const fin=()=>{ if(!done){ done=true; res(); } };
+      u.onend=fin; u.onerror=fin; setTimeout(fin,Math.max(8000,text.length*400));
+      speechSynthesis.speak(u);
+    }catch(e){ fallback(); }
+  });
+}
+
+/* ---------- 録音（答えている間だけ録音し、1つの音声ファイルにまとめる。声を文字にする機能は使わない） ---------- */
+const TOUCH=matchMedia("(hover:none)").matches||"ontouchstart" in window;
+const AC=window.AudioContext||window.webkitAudioContext;
+const CAN_REC=!!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&AC);
+const OUT_SR=16000;
+const rec={ctx:null,stream:null,node:null,src:null,on:false,chunks:[],len:0,segs:[],level:0,peak:0,err:"",acc:0,cnt:0,pos:0,ratio:3,segFrom:0,cur:null,wake:null};
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+async function micOpen(){   /* 必ずボタンを押した直後に呼ぶ */
+  rec.err="";
+  if(rec.stream&&rec.stream.active&&rec.ctx&&rec.ctx.state!=="closed"){ try{ await rec.ctx.resume(); }catch(e){} return true; }
+  if(!rec.ctx||rec.ctx.state==="closed"){ try{ rec.ctx=new AC(); }catch(e){ rec.err="cap"; return false; } }
+  const resumed=rec.ctx.resume?rec.ctx.resume().catch(()=>{}):null;
+  try{ rec.stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}}); }
+  catch(e){ const n=e&&e.name; rec.err=(n==="NotAllowedError"||n==="SecurityError")?"mic":(n==="NotFoundError"||n==="OverconstrainedError")?"nodev":"cap"; return false; }
+  await resumed;
+  rec.ratio=rec.ctx.sampleRate/OUT_SR;
+  rec.src=rec.ctx.createMediaStreamSource(rec.stream);
+  const node=rec.ctx.createScriptProcessor(4096,1,1);
+  node.onaudioprocess=ev=>{
+    const x=ev.inputBuffer.getChannelData(0); let s=0;
+    for(let i=0;i<x.length;i++) s+=x[i]*x[i];
+    const rms=Math.sqrt(s/x.length); rec.level=rms;
+    if(rec.on){
+      if(rms>rec.peak) rec.peak=rms;
+      const out=new Int16Array(Math.ceil(x.length/rec.ratio)+2); let k=0;
+      for(let i=0;i<x.length;i++){ rec.acc+=x[i]; rec.cnt++; rec.pos+=1;
+        if(rec.pos>=rec.ratio){ rec.pos-=rec.ratio; let v=rec.acc/rec.cnt; rec.acc=0; rec.cnt=0; v=v>1?1:v<-1?-1:v; out[k++]=v<0?v*32768:v*32767; } }
+      if(k){ rec.chunks.push(out.subarray(0,k)); rec.len+=k; }
+    }
+    ev.outputBuffer.getChannelData(0).fill(0);
+  };
+  rec.src.connect(node); node.connect(rec.ctx.destination); rec.node=node;
+  const tr=rec.stream.getAudioTracks()[0]; if(tr) tr.onended=()=>{ rec.err="ended"; };
+  try{ if(navigator.wakeLock) rec.wake=await navigator.wakeLock.request("screen"); }catch(e){}
+  return true;
+}
+function micClose(){
+  try{ rec.node&&rec.node.disconnect(); }catch(e){} try{ rec.src&&rec.src.disconnect(); }catch(e){}
+  try{ rec.stream&&rec.stream.getTracks().forEach(t=>t.stop()); }catch(e){} try{ rec.ctx&&rec.ctx.close(); }catch(e){}
+  try{ rec.wake&&rec.wake.release(); }catch(e){}
+  Object.assign(rec,{ctx:null,stream:null,node:null,src:null,on:false,wake:null});
+}
+function recReset(){ rec.chunks=[]; rec.len=0; rec.segs=[]; }
+function segStart(meta){ rec.peak=0; rec.acc=0; rec.cnt=0; rec.pos=0; rec.segFrom=rec.len; rec.cur=meta; rec.on=true; }
+function segStop(){ rec.on=false; const n=rec.len-rec.segFrom; if(n>OUT_SR*0.3) rec.segs.push(Object.assign({},rec.cur,{from:rec.segFrom,len:n,peak:rec.peak})); return n/OUT_SR; }
+function buildWav(){   /* 答えだけを順につなぎ、間に0.8秒の無音を入れる（16kHz・モノラル） */
+  const all=new Int16Array(rec.len); let o=0; for(const c of rec.chunks){ all.set(c,o); o+=c.length; }
+  const gap=Math.round(OUT_SR*0.8), parts=[], marks=[]; let t=0;
+  rec.segs.forEach((s,i)=>{ if(i){ parts.push(new Int16Array(gap)); t+=gap; } parts.push(all.slice(s.from,s.from+s.len)); marks.push({n:s.n,follow:s.follow||null,start:t/OUT_SR,dur:s.len/OUT_SR,peak:s.peak}); t+=s.len; });
+  const dataLen=t*2, h=new DataView(new ArrayBuffer(44)), w=(p,s)=>{ for(let i=0;i<s.length;i++) h.setUint8(p+i,s.charCodeAt(i)); };
+  w(0,"RIFF"); h.setUint32(4,36+dataLen,true); w(8,"WAVE"); w(12,"fmt "); h.setUint32(16,16,true); h.setUint16(20,1,true); h.setUint16(22,1,true);
+  h.setUint32(24,OUT_SR,true); h.setUint32(28,OUT_SR*2,true); h.setUint16(32,2,true); h.setUint16(34,16,true); w(36,"data"); h.setUint32(40,dataLen,true);
+  return {blob:new Blob([h.buffer,...parts],{type:"audio/wav"}),marks,total:t/OUT_SR};
+}
+/* 録音をこの端末に保存（ページを開き直しても、最後の録音から続けられる） */
+const IDB={
+  open(){ return new Promise((res,rej)=>{ if(!window.indexedDB) return rej(new Error("no idb")); const r=indexedDB.open("mensetsu-audio",1); r.onupgradeneeded=()=>r.result.createObjectStore("a"); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); },
+  async put(k,v){ try{ const db=await this.open(); await new Promise((res,rej)=>{ const t=db.transaction("a","readwrite"); t.objectStore("a").put(v,k); t.oncomplete=res; t.onerror=()=>rej(t.error); }); }catch(e){} },
+  async get(k){ try{ const db=await this.open(); return await new Promise((res,rej)=>{ const r=db.transaction("a").objectStore("a").get(k); r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error); }); }catch(e){ return null; } }
+};
+let LAST=null;   /* {blob,marks,total,session,round,theme} */
+const REC_MSG={
+ mic:"マイクの使用が許可されていません。iPhone：「設定」→「Safari」→「マイク」を「確認」か「許可」にする。Android：アドレスバー左のアイコン →「権限」→「マイク」を許可。そのあと、このページを開き直してください。",
+ nodev:"マイクが見つかりません。イヤホンをつないでいる場合は外してから、ページを開き直してください。",
+ cap:"マイクを使えませんでした。通話中や、ほかのアプリ（録音・ビデオ通話など）がマイクを使っていないか確かめて、ページを開き直してください。",
+ ended:"録音が止まりました（電話の着信や画面ロックなど）。「中断する」を押して、もう一度始めてください。",
+ quiet:"声がほとんど録音されていません。スマホの下のマイクをふさいでいないか確かめて、はっきり話してください。",
+ env:""};
+const ENV_BAD=location.protocol==="file:"?"このページはファイルを直接開いているため、録音できません。Webにアップしたページ（https://〜）を開いてください。":(window.self!==window.top?"このページはほかのページの中に表示されているため、マイクが使えない場合があります。ページを単独で開いてください。":"");
+function mkMeter(){ const i=el("i"); const e=el("div",{class:"meter2"},i); return {el:e,set:v=>{ i.style.width=Math.min(100,Math.sqrt(v)*260)+"%"; i.classList.toggle("lo",v<0.01); }}; }
+
+/* ---------- 画面の切り替え ---------- */
+let view="practice";
+function setView(v){ view=v; [["practice","Practice"],["list","List"],["manual","Manual"]].forEach(([k,id])=>{ $("#tab"+id).setAttribute("aria-selected",String(v===k)); $("#v"+id).hidden=v!==k; }); if(v==="list") renderList(); if(v==="manual") renderManual(); scrollTo({top:0}); }
+$("#tabPractice").addEventListener("click",()=>{ if(view!=="practice") setView("practice"); });
+$("#tabList").addEventListener("click",()=>{ if(iv.on) return; setView("list"); });
+$("#tabManual").addEventListener("click",()=>{ if(iv.on) return; setView("manual"); });
+
+/* ---------- ① はじめる ---------- */
+const iv={on:false,plan:[],idx:0,phase:"idle",follow:null,t0:0,turnT0:0,timer:null,meta:null};
+function renderIdle(){
+  const v=$("#vPractice"); v.textContent="";
+  const est=n=>`約${Math.round(n*1.5)}分`;
+  const seg=el("div",{class:"seg",role:"group","aria-label":"質問の数"});
+  [5,8,12].forEach(n=>seg.append(el("button",{type:"button","aria-pressed":String(state.set.count===n&&state.set.src!=="sel"),onclick:()=>{state.set.count=n;state.set.src="rand";save();renderIdle();}},`${n}問`,el("small",{text:est(n)}))));
+  const sw=(id,label,key)=>{ const i=el("input",{type:"checkbox",id,role:"switch"}); i.checked=!!state.set[key]; i.addEventListener("change",()=>{state.set[key]=i.checked;save();}); return el("label",{class:"sw",for:id},i,label); };
+  const src=el("select",{id:"srcSel"}); [["rand","ランダム（本番に近い順番）"],["sel",`質問リストで選んだ質問（${state.sel.length}問）`]].forEach(([v_,t])=>src.append(el("option",{value:v_,text:t}))); src.value=state.set.src; src.addEventListener("change",()=>{state.set.src=src.value;save();renderIdle();});
+  const round=el("input",{type:"text",id:"round",value:state.round}); round.addEventListener("input",()=>{state.round=round.value;save();});
+  const theme=el("textarea",{id:"theme",rows:"2",placeholder:CFG.themePH}); theme.value=state.theme; theme.addEventListener("input",()=>{state.theme=theme.value;save();});
+  const checkOut=el("div",{class:"check",hidden:""});
+  const envBad=ENV_BAD||(!CAN_REC?"このブラウザでは録音できません。iPhoneはSafari、AndroidはChromeで開いてください（LINEなどのアプリの中で開いた場合は、メニューから「ブラウザで開く」を選んでください）。":"");
+  const errBox=el("div",{class:"alert",id:"startErr",hidden:"",style:"margin-top:14px"});
+  const card=el("div",{class:"card hero"},
+    el("h2",{text:"本番と同じ流れで、ひとりで面接練習"}),
+    el("p",{text:"画面の面接官が質問を読み上げます。声で答えると、答えが録音されます。終わったら、録音と依頼文をGeminiに送ると、フィードバックのPDFが届きます。"}),
+    el("ol",{class:"flow"},
+      el("li",{},el("b",{text:"面接を受ける"}),"質問を聞いたら「答え始める」をタップ"),
+      el("li",{},el("b",{text:"録音と依頼文をGeminiへ"}),"録音を保存して、依頼文と一緒に送る"),
+      el("li",{},el("b",{text:"PDFで受け取る"}),"Geminiが作ったPDFを保存")),
+    el("div",{class:"setrow"},
+      el("div",{class:"field"},el("span",{text:"質問の数"}),state.set.src==="sel"?el("div",{class:"small",text:`質問リストで選んだ ${state.sel.length}問`}):seg),
+      sw("swVoice","質問を読み上げる","voice"),
+      sw("swFollow","深掘りの質問もする","follow")),
+    el("div",{class:"go"},
+      el("button",{class:"btn primary huge",type:"button",id:"startBtn",onclick:startIv},"面接を始める"),
+      el("button",{class:"btn",type:"button",onclick:()=>soundCheck(checkOut)},"音を確認"),
+      el("button",{class:"btn",type:"button",onclick:()=>micCheck(checkOut)},"録音を確認")),
+    errBox, checkOut,
+    el("details",{class:"more"},el("summary",{text:"詳しい設定（出題のしかた・練習回・"+CFG.themeLabel+"）"}),
+      el("div",{class:"moregrid"},
+        el("label",{class:"field",for:"srcSel"},el("span",{text:"出題のしかた"}),src),
+        el("label",{class:"field",for:"round"},el("span",{text:"練習回"}),round),
+        el("label",{class:"field wide",for:"theme"},el("span",{text:CFG.themeLabel+"（任意。書くと、答えとの一貫性も見てもらえます）"}),theme))),
+    el("p",{class:"notice",text:"iPhoneはSafari、AndroidはChromeで開いてください。マイクの確認が出たら「許可」を選びます。面接の途中で画面を閉じたり、ほかのアプリに切り替えたりすると録音が止まります。"})
+  );
+  if(envBad) card.prepend(el("div",{class:"alert",style:"margin-bottom:16px",text:envBad}));
+  v.append(card);
+  IDB.get(CFG.key+"-last").then(d=>{ if(d&&d.blob&&$("#vPractice").contains(card)){ LAST=d; card.append(el("p",{class:"small",style:"margin:14px 0 0"},`前回の録音（${new Date(d.session.at).toLocaleString("ja-JP",{month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"})}・${fmtT(d.total)}）が残っています。`,el("button",{class:"btn ghost",type:"button",style:"padding:2px 8px",onclick:()=>renderDone(false,true)},"Geminiに送る手順を開く"))); } });
+}
+let checking=false;
+function soundCheck(box){ box.hidden=false; box.textContent="面接官の声を流しています。聞こえたら準備OKです（聞こえないときは、音量とマナーモードを確かめてください）。"; unlockVoice(); speak("音声の確認です。この声が聞こえたら、準備オーケーです。"); }
+async function micCheck(box){
+  if(checking||iv.on) return; box.hidden=false; box.textContent="";
+  if(ENV_BAD||!CAN_REC){ box.append(el("span",{class:"warn",text:ENV_BAD||"このブラウザでは録音できません。iPhoneはSafari、AndroidはChromeで開いてください。"})); return; }
+  checking=true; try{ speechSynthesis.cancel(); }catch(e){}
+  const st=el("b",{text:"マイクを準備しています…"}), m=mkMeter(); box.append(el("div",{},st),m.el);
+  const ok=await micOpen();
+  if(!ok){ st.className="warn"; st.textContent="✕ "+REC_MSG[rec.err]; m.el.remove(); checking=false; return; }
+  recReset(); segStart({n:0}); st.textContent="録音中… 4秒間、「よろしくお願いします」と声に出してください";
+  const t=setInterval(()=>m.set(rec.level),80);
+  await sleep(4000); segStop(); clearInterval(t);
+  const w=buildWav(); micClose(); recReset(); m.el.remove();
+  const peak=w.marks[0]?w.marks[0].peak:0;
+  if(peak<0.01){ st.className="warn"; st.textContent="✕ "+REC_MSG.quiet; }
+  else{ st.className=""; st.style.color="var(--accent)"; st.textContent="✓ 録音できました。再生して自分の声が聞こえれば準備OKです。"; }
+  box.append(el("audio",{controls:"",src:URL.createObjectURL(w.blob),style:"width:100%;margin-top:8px"}));
+  checking=false;
+}
+function unlockVoice(){ try{ if(state.set.voice&&"speechSynthesis" in window){ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(" "); u.volume=0; speechSynthesis.speak(u); } }catch(e){} }
+
+/* ---------- ② 面接中 ---------- */
+let R={};
+function renderRun(){
+  const v=$("#vPractice"); v.textContent="";
+  R.dots=el("div",{class:"dots","aria-hidden":"true"}); iv.plan.forEach(()=>R.dots.append(el("i")));
+  R.meta=el("span",{class:"meta"});
+  R.tag=el("div",{class:"qtag"}); R.q=el("p",{class:"qtext"});
+  R.who=el("div",{class:"who"},el("span",{class:"av",html:'<svg viewBox="0 0 40 40" width="24" height="24" aria-hidden="true"><circle cx="20" cy="14" r="7" fill="#2c6a57"/><path d="M6 36c1.5-8 7-12 14-12s12.5 4 14 12z" fill="#2c6a57"/></svg>'}),R.whoT=el("span"));
+  R.timer=el("span",{class:"timer",text:"0:00"}); R.tbarI=el("i"); R.tbar=el("div",{class:"tbar"},R.tbarI,el("b",{style:"left:25%"}),el("b",{style:"left:50%"}));
+  R.m=mkMeter();
+  R.err=el("div",{class:"alert",hidden:""});
+  R.ans=el("div",{class:"answer idle"},el("div",{class:"ahead"},el("span",{class:"recdot"}),R.aLabel=el("b",{text:"面接官の質問を聞いてください"}),R.timer),R.err,
+    el("div",{class:"mrow2"},el("span",{class:"small",text:"声の大きさ"}),R.m.el),R.tbar,el("div",{class:"tlabels"},el("span",{text:"0秒"}),el("span",{text:"30秒"}),el("span",{text:"60秒"}),el("span",{text:"90秒〜"})));
+  R.next=el("button",{class:"btn primary huge",type:"button",onclick:mainAction});
+  v.append(el("div",{class:"run"},
+    el("div",{class:"prog"},R.dots,R.meta),
+    el("div",{class:"qcard"},R.who,R.tag,R.q),
+    R.ans,
+    el("div",{class:"ctl bar"},R.next,
+      el("button",{class:"btn",type:"button",onclick:()=>{ if(iv.phase==="answer") return; const q=QS[iv.plan[iv.idx]-1]; speak(iv.follow||`質問${q.n}番。${q.q}`); }},"もう一度聞く"),
+      el("button",{class:"btn ghost",type:"button",onclick:stopIv},"中断する"))));
+  updMeta();
+}
+function updMeta(){
+  if(!R.dots) return;
+  [...R.dots.children].forEach((d,i)=>{ d.className=i<iv.idx?"on":i===iv.idx?"now":""; });
+  R.meta.textContent=`${Math.min(iv.idx+1,iv.plan.length)} / ${iv.plan.length}問　録音 ${fmtT(rec.len/OUT_SR)}`;
+  R.meta.classList.toggle("warn",rec.len/OUT_SR>540);
+}
+function setSpeaking(on,label){ R.who.classList.toggle("talk",on); R.whoT.textContent=label; }
+function showQ(n,text,follow){
+  R.tag.className="qtag"+(follow?" follow":""); R.tag.textContent="";
+  if(follow) R.tag.append("続けて質問（深掘り）"); else R.tag.append(el("span",{class:"num",text:String(n)}),"番の質問");
+  R.q.textContent=text;
+}
+async function startIv(){
+  if(iv.on) return;
+  const eb=$("#startErr"); if(eb){ eb.hidden=true; }
+  if(ENV_BAD||!CAN_REC){ if(eb){ eb.hidden=false; eb.textContent=ENV_BAD||"このブラウザでは録音できません。"; } return; }
+  unlockVoice();
+  const ok=await micOpen();
+  if(!ok){ if(eb){ eb.hidden=false; eb.textContent=REC_MSG[rec.err]; eb.scrollIntoView({block:"center"}); } return; }
+  const orderSel=arr=>{ const tl=[CFG.last,...(CFG.tail||[])], rk=CFG.rank||(n=>n); return [...arr.filter(n=>!tl.includes(n)).sort((x,y)=>rk(x)-rk(y)),...tl.filter(n=>arr.includes(n))]; };
+  let plan=state.set.src==="sel"&&state.sel.length?orderSel([...state.sel]):planRandom(state.set.count);
+  recReset();
+  Object.assign(iv,{on:true,plan,idx:0,phase:"speak",follow:null,t0:Date.now()});
+  state.answers={}; state.times={}; state.session={at:new Date().toISOString(),order:[],audio:true}; save();
+  renderRun(); clearInterval(iv.meta); iv.meta=setInterval(updMeta,500);
+  setMain("wait");
+  showQ(0,"これから面接を始めます。よろしくお願いします。",true); R.tag.textContent="あいさつ";
+  setSpeaking(true,"面接官が話しています"); await speak("これから面接を始めます。よろしくお願いします。"); setSpeaking(false,"");
+  if(!iv.on) return;
+  await sleep(400); askCurrent();
+}
+async function askCurrent(){
+  if(!iv.on) return;
+  const q=QS[iv.plan[iv.idx]-1]; iv.follow=null; iv.phase="speak"; setMain("wait");
+  state.session.order.push({n:q.n,follow:null}); save(); updMeta();
+  showQ(q.n,q.q,false); idleAnswer();
+  setSpeaking(true,"面接官が話しています"); await speak(`質問${q.n}番。${q.q}`); setSpeaking(false,"");
+  if(iv.on) startTurn();
+}
+function idleAnswer(){ R.ans.classList.add("idle"); R.aLabel.textContent="面接官の質問を聞いてください"; R.timer.textContent="0:00"; R.timer.classList.remove("over"); R.tbarI.style.width="0"; R.tbar.classList.remove("over"); R.m.set(0); R.err.hidden=true; }
+function setMain(mode){
+  R.next.textContent=""; R.next.className="btn primary huge"; R.next.disabled=false;
+  if(mode==="wait"){ R.next.disabled=true; R.next.append("面接官が話しています…"); }
+  else if(mode==="ready"){ R.next.classList.add("go"); R.next.append("🎤 タップして答え始める"); if(!TOUCH) R.next.append(el("kbd",{text:"スペース"})); }
+  else if(mode==="answer"){ R.next.append("答え終わった"); if(!TOUCH) R.next.append(el("kbd",{text:"スペース"})); }
+  else if(mode==="busy"){ R.next.disabled=true; R.next.append("記録しています…"); }
+}
+function mainAction(){ if(iv.phase==="ready") beginAnswer(); else if(iv.phase==="answer") nextStep(); }
+function startTurn(){
+  iv.phase="ready"; setMain("ready"); setSpeaking(false,"お答えください");
+  R.ans.classList.add("idle"); R.aLabel.textContent="ボタンを押してから、声に出して答えてください";
+}
+function updAns(){
+  if(iv.phase!=="answer") return;
+  R.m.set(rec.level);
+  let msg="";
+  if(rec.err) msg=REC_MSG[rec.err];
+  else if(rec.ctx&&rec.ctx.state==="suspended") msg="録音が一時停止しています。画面をタップしてください。";
+  else if((Date.now()-iv.turnT0)>6000&&rec.peak<0.008) msg=REC_MSG.quiet;
+  R.err.hidden=!msg; R.err.textContent=msg;
+}
+function beginAnswer(){
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(rec.ctx&&rec.ctx.state==="suspended") rec.ctx.resume().catch(()=>{});
+  iv.phase="answer"; iv.turnT0=Date.now(); setMain("answer");
+  R.ans.classList.remove("idle"); R.aLabel.textContent="録音中。声に出して答えてください";
+  segStart({n:QS[iv.plan[iv.idx]-1].n,follow:iv.follow});
+  clearInterval(iv.timer); iv.timer=setInterval(()=>{ const s=(Date.now()-iv.turnT0)/1000; R.timer.textContent=fmtT(s); R.timer.classList.toggle("over",s>90); R.tbar.classList.toggle("over",s>90); R.tbarI.style.width=Math.min(100,s/120*100)+"%"; updAns(); },120);
+}
+function commit(){
+  clearInterval(iv.timer);
+  const q=QS[iv.plan[iv.idx]-1], sec=segStop();
+  state.answers[q.n]=(state.answers[q.n]||0)+1;
+  state.times[q.n]=(state.times[q.n]||0)+sec; save();
+}
+async function nextStep(){
+  if(!iv.on||iv.phase!=="answer") return;
+  iv.phase="busy"; setMain("busy"); R.aLabel.textContent="記録しています…";
+  commit();
+  const q=QS[iv.plan[iv.idx]-1];
+  if(state.set.follow&&!iv.follow&&FOLLOW[q.g]&&isMid(q.n)&&Math.random()<0.4){
+    const f=rnd(FOLLOW[q.g]); iv.follow=f; const o=state.session.order; o[o.length-1].follow=f; save();
+    showQ(q.n,f,true); idleAnswer(); setSpeaking(true,"面接官が話しています"); await speak(f); setSpeaking(false,"");
+    if(iv.on) startTurn(); return;
+  }
+  iv.idx++;
+  if(iv.idx>=iv.plan.length){ await finishIv(); return; }
+  await sleep(300); askCurrent();
+}
+async function wrapUp(){
+  const w=buildWav(); micClose();
+  LAST={blob:w.blob,marks:w.marks,total:w.total,session:state.session,round:state.round,theme:state.theme};
+  if(w.marks.length) await IDB.put(CFG.key+"-last",LAST);
+}
+async function finishIv(){
+  showQ(0,"以上で面接を終わります。お疲れさまでした。",true); R.tag.textContent="おわり"; idleAnswer();
+  setSpeaking(true,"面接官が話しています"); await speak("以上で面接を終わります。お疲れさまでした。");
+  iv.on=false; clearInterval(iv.meta); await wrapUp(); renderDone();
+}
+async function stopIv(){
+  try{ speechSynthesis.cancel(); }catch(e){}
+  if(iv.phase==="answer") commit(); else rec.on=false;
+  iv.on=false; clearInterval(iv.timer); clearInterval(iv.meta);
+  await wrapUp();
+  if(LAST&&LAST.marks.length) renderDone(true); else renderIdle();
+}
+document.addEventListener("keydown",e=>{
+  if(!iv.on||(iv.phase!=="answer"&&iv.phase!=="ready")) return;
+  const tg=e.target&&e.target.tagName; if(tg==="INPUT"||tg==="TEXTAREA"||tg==="SELECT") return;
+  if(e.code==="Space"||e.key==="Enter"){ e.preventDefault(); mainAction(); }
+});
+
+/* ---------- ③ おわり ---------- */
+const answered=()=>Object.keys(state.answers).map(Number).sort((a,b)=>a-b).filter(n=>(state.answers[n]||"").trim());
+function path(arr){ const d=el("div",{class:"path"}); arr.forEach((t,i)=>{ if(i) d.append(el("i",{text:"→"})); d.append(el("span",{text:t})); }); return d; }
+function stepsBlock(getPrompt,emptyMsg,desc){
+  const s1=el("li",{class:"cur"}), s2=el("li"), s3=el("li");
+  const copyBtn=el("button",{class:"btn primary",type:"button"},"依頼文をコピー");
+  const openBtn=el("a",{class:"btn",href:"https://gemini.google.com/app",target:"_blank",rel:"noopener"},"Geminiを開く ↗");
+  const copyMsg=el("span",{class:"small"});
+  copyBtn.addEventListener("click",async()=>{
+    const pr=getPrompt();
+    if(!pr){ copyMsg.className="small warn"; copyMsg.textContent=emptyMsg; return; }
+    const ok=await copyText(pr);
+    if(ok){ copyBtn.className="btn done"; copyBtn.textContent="✓ コピーしました"; copyMsg.className="small"; copyMsg.textContent="次は 2 の「Geminiを開く」を押します。"; s1.className="ok"; s2.className="cur"; openBtn.className="btn primary"; }
+    else{ copyMsg.className="small warn"; copyMsg.textContent="コピーできませんでした。もう一度押してください。"; }
+  });
+  openBtn.addEventListener("click",()=>{ s2.className="ok"; s3.className="cur"; openBtn.className="btn done"; });
+  s1.append(el("span",{class:"n",text:"1"}),el("h3",{text:"依頼文をコピーする"}),el("div",{class:"body"},el("span",{text:desc}),el("div",{class:"ctl"},copyBtn,copyMsg)));
+  s2.append(el("span",{class:"n",text:"2"}),el("h3",{text:"Geminiに貼り付けて送る"}),el("div",{class:"body"},openBtn,
+    path(TOUCH?["入力欄を長押し →「ペースト」","送信"]:["入力欄に貼り付け（Ctrl+V）","送信"]),
+    el("span",{class:"small",text:"Geminiがフィードバックを「PDFファイル」にして返してくれます（少し時間がかかります）。"})));
+  s3.append(el("span",{class:"n",text:"3"}),el("h3",{text:"できたPDFを保存する"}),el("div",{class:"body"},
+    path(TOUCH?["返答の中のPDFファイルをタップ","ダウンロード（iPhoneは共有 →「ファイルに保存」）"]:["返答の中のPDFファイル","ダウンロード"]),
+    el("div",{class:"alert",style:"font-size:13px"},el("b",{text:"うまくいかないとき（同じ画面で送るだけ）"}),el("br"),
+      "PDFが出てこない →「PDFファイルとして出力して」",el("br"),
+      "文字が□や？になる →「日本語フォントでPDFを作り直して」",el("br"),
+      "2枚以上になる →「A4の1枚に収めて作り直して」",el("br"),
+      "文字が重なる・はみ出す →「重なりとはみ出しを直して、レイアウト指定どおりに作り直して」")));
+  return el("ol",{class:"steps"},s1,s2,s3);
+}
+function audioName(){ const d=new Date(LAST.session.at), p=n=>String(n).padStart(2,"0"); return `面接練習_${CFG.fileTag||"録音"}_${d.getMonth()+1}月${d.getDate()}日_${p(d.getHours())}${p(d.getMinutes())}.wav`; }
+async function saveAudio(msg){
+  const name=audioName(), file=new File([LAST.blob],name,{type:"audio/wav"});
+  try{ if(navigator.canShare&&navigator.canShare({files:[file]})){ await navigator.share({files:[file],title:name}); msg.className="small"; msg.textContent="保存できたら、次は 2 へ進みます。"; return true; } }
+  catch(e){ if(e&&e.name==="AbortError"){ msg.className="small warn"; msg.textContent="保存が取り消されました。もう一度押してください。"; return false; } }
+  const a=el("a",{href:URL.createObjectURL(LAST.blob),download:name}); document.body.append(a); a.click(); setTimeout(()=>a.remove(),1500);
+  msg.className="small"; msg.textContent="ダウンロードしました。次は 2 へ進みます。"; return true;
+}
+function audioSteps(){
+  const li=[el("li",{class:"cur"}),el("li"),el("li"),el("li")];
+  const go=i=>{ li.forEach((x,k)=>x.className=k<i?"ok":k===i?"cur":""); };
+  const saveBtn=el("button",{class:"btn primary",type:"button"},"録音を保存する"), saveMsg=el("span",{class:"small"});
+  saveBtn.addEventListener("click",async()=>{ if(await saveAudio(saveMsg)){ saveBtn.className="btn done"; saveBtn.textContent="✓ 保存しました"; go(1); copyBtn.className="btn primary"; } });
+  const copyBtn=el("button",{class:"btn",type:"button"},"依頼文をコピー"), copyMsg=el("span",{class:"small"});
+  copyBtn.addEventListener("click",async()=>{ const ok=await copyText(buildPrompt(audioSource()));
+    if(ok){ copyBtn.className="btn done"; copyBtn.textContent="✓ コピーしました"; copyMsg.className="small"; copyMsg.textContent="次は 3 の「Geminiを開く」を押します。"; go(2); openBtn.className="btn primary"; }
+    else{ copyMsg.className="small warn"; copyMsg.textContent="コピーできませんでした。もう一度押してください。"; } });
+  const openBtn=el("a",{class:"btn",href:"https://gemini.google.com/app",target:"_blank",rel:"noopener"},"Geminiを開く ↗");
+  openBtn.addEventListener("click",()=>{ go(3); openBtn.className="btn done"; });
+  li[0].append(el("span",{class:"n",text:"1"}),el("h3",{text:"録音を保存する"}),el("div",{class:"body"},
+    el("span",{text:"あなたの答えだけをまとめた音声ファイルです。"}),
+    el("div",{class:"ctl"},saveBtn,saveMsg),
+    TOUCH?path(["「録音を保存する」","共有メニューの「ファイルに保存」（Androidはダウンロード）"]):null));
+  li[1].append(el("span",{class:"n",text:"2"}),el("h3",{text:"依頼文をコピーする"}),el("div",{class:"body"},
+    el("span",{text:"どの質問への答えが録音のどこにあるかが入った依頼文です。"}),el("div",{class:"ctl"},copyBtn,copyMsg)));
+  li[2].append(el("span",{class:"n",text:"3"}),el("h3",{text:"Geminiに録音と依頼文を送る"}),el("div",{class:"body"},openBtn,
+    path(TOUCH?["入力欄の「＋」","「ファイル」","保存した録音を選ぶ","入力欄を長押し →「ペースト」","送信"]:["入力欄の「＋」","「ファイルをアップロード」","保存した録音を選ぶ","入力欄に貼り付け（Ctrl+V）","送信"]),
+    el("span",{class:"small",text:"録音を聞いたGeminiが、フィードバックを「PDFファイル」にして返してくれます（少し時間がかかります）。"})));
+  li[3].append(el("span",{class:"n",text:"4"}),el("h3",{text:"できたPDFを保存する"}),el("div",{class:"body"},
+    path(TOUCH?["返答の中のPDFファイルをタップ","ダウンロード（iPhoneは共有 →「ファイルに保存」）"]:["返答の中のPDFファイル","ダウンロード"]),
+    el("div",{class:"alert",style:"font-size:13px"},el("b",{text:"うまくいかないとき（同じ画面で送るだけ）"}),el("br"),
+      "「音声を添付して」と返ってきた → 録音ファイルを添付し忘れています。3 をやり直す",el("br"),
+      "PDFが出てこない →「PDFファイルとして出力して」",el("br"),
+      "文字が□や？になる →「日本語フォントでPDFを作り直して」",el("br"),
+      "2枚以上になる →「A4の1枚に収めて作り直して」")));
+  return el("ol",{class:"steps"},...li);
+}
+function renderDone(stopped,reopened){
+  if(!LAST){ renderIdle(); return; }
+  setView("practice");
+  const v=$("#vPractice"); v.textContent="";
+  const mk=LAST.marks, fol=mk.filter(m=>m.follow).length, qs=new Set(mk.map(m=>m.n)).size;
+  const quiet=mk.filter(m=>m.peak<0.01).map(m=>m.n);
+  const warns=[];
+  if(LAST.total>600) warns.push(`録音が${fmtT(LAST.total)}あります。Geminiの無料版では10分までしか読み込めないことがあります。次からは質問の数を減らしてください。`);
+  if(quiet.length) warns.push(`${[...new Set(quiet)].join("・")}番の答えは、声がほとんど録音されていません。下で再生して確かめてください。`);
+  v.append(el("div",{class:"card done"},
+    el("h2",{text:reopened?"前回の録音":stopped?"面接を中断しました":"おつかれさまでした"}),
+    el("p",{class:"small",style:"margin:4px 0 0",text:"下の4つの手順で、GeminiにフィードバックのPDFを作ってもらいましょう。"}),
+    el("div",{class:"stats"},
+      el("div",{class:"stat"},el("b",{text:`${qs}問`}),el("span",{text:"答えた質問"})),
+      el("div",{class:"stat"},el("b",{text:fmtT(LAST.total)}),el("span",{text:"録音の長さ"})),
+      el("div",{class:"stat"},el("b",{text:`${fol}回`}),el("span",{text:"深掘りの質問"}))),
+    warns.length?el("div",{class:"alert",style:"margin-top:14px"},...warns.flatMap((w,i)=>i?[el("br"),w]:[w])):null,
+    el("div",{class:"player"},el("span",{class:"small",text:"録音を聞いて確かめる"}),el("audio",{controls:"",preload:"metadata",src:URL.createObjectURL(LAST.blob)})),
+    audioSteps(),
+    el("details",{class:"review"},el("summary",{text:"録音の中身（どの質問がどこにあるか）"}),
+      el("div",{class:"alist"},...mk.map(m=>el("div",{class:"aitem"},el("span",{class:"badge",text:String(m.n)}),el("div",{class:"q"},m.follow?`（深掘り）${m.follow}`:QS[m.n-1].q,el("small",{text:`${fmtT(m.start)}〜　約${Math.round(m.dur)}秒`})))))),
+    el("div",{class:"again"},el("button",{class:"btn",type:"button",onclick:renderIdle},"もう一度面接する"),el("button",{class:"btn ghost",type:"button",onclick:()=>setView("list")},"質問リストを見る"))));
+  scrollTo({top:0,behavior:"smooth"});
+}
+function audioSource(){
+  return {mode:"audio",round:LAST.round,theme:LAST.theme,at:LAST.session.at,
+    items:LAST.marks.map(m=>({label:m.follow?`${m.n}番の深掘り`:`${m.n}番`,q:m.follow||QS[m.n-1].q,sec:Math.round(m.dur),start:m.start}))};
+}
+async function copyText(t){
+  try{ await navigator.clipboard.writeText(t); return true; }
+  catch(_){ const ta=el("textarea",{style:"position:fixed;left:-9999px"}); ta.value=t; document.body.append(ta); ta.select(); let ok=false; try{ ok=document.execCommand("copy"); }catch(__){} ta.remove(); return ok; }
+}
+
+/* ---------- Geminiへの依頼文 ---------- */
+function buildPrompt(src){
+  const A=src.mode==="audio", M=src.mode==="manual", RD=src.round, TH=src.theme, d=new Date(src.at||Date.now()), items=src.items;
+  const timed=items.filter(x=>x.sec>0), chart=M?timed.length>=3:true;
+  const crit=CFG.criteria.map((c,i)=>`${i+1}. ${c[0]}（${c[1]}）`).join("\n");
+  return `あなたは高校の進路指導で、大学の総合型選抜・学校推薦型選抜の面接指導を担当する経験豊富な先生です。
+${M?"先生が面接官となって行った面接練習":"受験生がひとりで行った面接練習"}について、受験生本人に渡すフィードバックを作ってください。${A?"\nこのメッセージには、受験生の答えを録音した音声ファイルが1つ添付されています。音声ファイルが添付されていない、または再生できない場合は、PDFを作らずに「録音の音声ファイルを添付して、もう一度送ってください。」とだけ返答してください。":""}
+
+# 志望先と入試の情報
+${UNIV}
+
+# 受験生
+- 練習回：${RD||"（未記入）"}
+- ${CFG.themeLabel}：${TH||"（未記入）"}
+
+# 練習の方法
+${M?"先生が面接官となり、対面で質問した。「答え」は、受験生の答えを先生が聞き取って入力したメモで、要点だけの場合がある。メモの言葉づかいや文の短さは受験生の評価に含めない。「面接官の気づき」は、その質問への答え方について先生が気づいたこと。"+(timed.length?"回答時間は先生が測った秒数（記入がある質問のみ）。":""):"練習ページの擬似面接官（合成音声）が質問を読み上げ、受験生が声で答えた。添付の音声ファイルには、受験生の答えだけが順番に録音されている（質問の読み上げは入っていない。答えと答えの間に約0.8秒の無音がある）。下の「質問と録音の位置」を手がかりに、どの答えがどの質問へのものかを対応させること。まず音声を最後までよく聞いて、それぞれの答えの内容を正確に把握してから評価すること。聞き取れない部分は推測で補わず、聞き取れなかったと扱う。「深掘り」は、直前の質問への答えを受けて面接官が続けて聞いた問い。"}
+
+# ${A?"質問と録音の位置":"質問と答え"}
+${A?items.map(x=>`[${x.label}] ${x.q}\n録音の位置：${fmtT(x.start)}〜${fmtT(x.start+x.sec)}（約${x.sec}秒）`).join("\n\n"):items.map(x=>`[${x.label}] ${x.q}${x.sec>0?`\n回答時間：約${x.sec}秒`:""}\n答え：${x.a}${x.note?`\n面接官の気づき：${x.note}`:""}`).join("\n\n")}${M&&src.overall?`\n\n# 面接全体を通した面接官の気づき（話し方・態度など）\n${src.overall}`:""}
+
+# 評価の観点（この順で5つ）
+${crit}
+
+# 書き方の注意
+- 答えにないことを推測で事実のように書かない。答えた質問が少なく判断できない観点は、そう述べて点数を控えめにする。
+- 受験生本人に「あなた」と語りかける、前向きで具体的な文体。抽象的な励ましだけにしない。
+- 改善例は、本人の答えの内容を活かした骨子（2〜3文）にとどめ、丸暗記用の完成原稿にしない。
+${M?"- 話し方や態度（声、目線、姿勢、話す速さなど）は、面接官の気づきに書かれていることだけをもとに述べる。書かれていないことは推測しない。"+(timed.length?"\n- 回答時間が90秒を超える答えには、短くする助言を入れる。":""):"- 回答時間が90秒を超える答えには、短くする助言を入れる。"+(A?"話し方（声の大きさ・話す速さ・「えー」「あの」などの言いよどみ・沈黙）は音声から判断してよい。表情や姿勢は判断しない。":"声の調子や表情は判断しない。")}
+- 答えたすべての質問を読んだうえで、改善が必要な質問を優先して取り上げる。
+
+# 出力のしかた（とても大事）
+内容を考えたら、下の「レイアウト指定」どおりのA4縦1枚のPDFファイルを作成し、ダウンロードできる形で出力してください。画面上の文章やCanvasではなく、必ずPDFファイルとして出力してください。
+
+## 作り方のルール
+- A4縦（210×297mm）1枚。余白は上下左右12mm。2枚目にはみ出したら、字数を削って必ず1枚に収める。
+- 日本語フォント（Noto Sans JP など）を本文・表・グラフのラベルすべてに指定する。★☆◎▲などの記号や絵文字は文字化けしやすいので使わない（点数は数字と棒・塗りつぶした図形で表す）。
+- 文字が枠や表のセルからはみ出したり、他の要素と重なったりしないこと。表は列幅を固定し、セル内で折り返す。
+- 文字の大きさ：タイトル16pt、見出し11pt、本文8.5〜9pt（7.5pt未満にはしない）。
+- 色：基調は深緑（#2C6A57）、薄い緑（#E2EFE9）、改善点と注意だけオレンジ（#B4641E／薄いオレンジ #FBEFE2）、文字は濃いグレー。背景は白。
+- グラフは日本語ラベルが文字化けしないように作り、PDFに図として配置する。
+- 出力する前に、出来上がりを確認する：1枚に収まっているか、文字化け・重なり・切れがないか。問題があれば直してから出力する。
+- 答えの全文は載せない。（ ）内は書き方の指示なので、PDFには残さない。
+- ファイル名は「面接フィードバック_${RD||"1回目"}_${d.getMonth()+1}月${d.getDate()}日.pdf」。
+
+## レイアウト指定（上から順に。「左｜右」は2列に並べる）
+1. ヘッダー（深緑の帯・白文字）
+   左：「面接練習フィードバック」（タイトル）、その下に小さく「${CFG.school}｜${CFG.exam}」
+   右：「練習回：${RD||"1回目"}」「実施日：${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日」
+
+2. 総合評価（薄い緑の角丸の枠）
+   左：A・B・C・Dの1文字を直径25mmほどの円の中に大きく（40pt前後）。円の下に、Aなら「合格圏」、Bなら「あと一歩」、Cなら「要強化」、Dなら「基礎から」
+   右：見出し「総評」と、総評（100字以内）
+
+3. 観点別の評価
+   左：レーダーチャート（5角形、約65mm四方）。軸は下の5つの観点（短い名前で可）、目盛りは1〜5点。塗りは薄い緑、線は深緑。各頂点の近くに点数の数字。
+   右：表「観点｜点数｜ひとこと」。点数は「4／5」のような数字の横に、5マスのうち点数分を深緑で塗った横棒を添える。ひとことは30字以内。
+
+4. 良かった点｜改善点と次の行動
+   左（薄い緑の枠、見出し「良かった点」）：3つまで、各40字以内の箇条書き
+   右（薄いオレンジの枠、見出し「改善点 → 次の行動」）：3つまで。各項目は太字の改善点（20字以内）と、その下に「→」で次の行動（40字以内）
+
+5. 質問ごとのアドバイス（見出しの左に深緑の縦線）
+   改善が必要な順に4問まで、2列×2段のカード（細い罫線の角丸）。各カード：
+   - 1行目（太字）：「◯番」と質問の要約（25字以内）
+   - 「直す点」の小さなオレンジのラベル＋35字以内
+   - 薄いグレーの帯で「改善例」＋本人の答えを活かした骨子（70字以内）
+
+${chart?`6. 回答の長さ｜本番に向けて
+   左：横棒グラフ「回答の長さ（目安30〜60秒）」。縦に質問番号、横軸は0〜120秒。30〜60秒の範囲を薄い緑の帯で示し、棒は深緑、90秒を超える棒だけオレンジ。棒の右端に秒数。90秒を超える答えがあれば、グラフの下に一言（30字以内）。`:`6. 話し方・態度｜本番に向けて
+   左：見出し「話し方・態度」。面接官の気づきをもとに、良い点と直す点を合わせて3つまで（各35字以内）。直す点の行頭にだけ小さなオレンジのラベル「直す」を付ける。気づきの記入がなければ、答えの内容から分かる伝え方（結論から話しているか、具体例があるか）について書く。`}
+   右：見出し「本番で聞かれそうな質問」と、四角いチェック欄つきで4つ（各35字以内）。その下に深緑の線の枠で「次回の重点」（60字以内）。
+
+7. フッター（細い線の下に小さく）：左「結論から話し、根拠と経験で支えよう。」右「${M?"面接練習":"面接セルフ練習"}」
+
+## グラフに使うデータ
+${chart?`- 回答時間（秒）：${timed.map(x=>`${x.label} ${x.sec}`).join("、")}`:(timed.length?`- 回答時間（秒）：${timed.map(x=>`${x.label} ${x.sec}`).join("、")}（記録が少ないのでグラフは作らない）`:"- 回答時間：記録なし（回答時間のグラフは作らない）")}
+- レーダーチャートと表の点数：あなたが付けた5つの観点の点数（1〜5の整数）
+
+PDFファイルのほかには、チャットに「PDFファイルをタップして保存してください。」とだけ書いてください。`;
+}
+
+/* ---------- 質問リスト ---------- */
+function renderList(){
+  const v=$("#vList"); v.textContent="";
+  const count=el("span",{class:"count"});
+  const pick=list=>{ state.sel=[...new Set(list)].sort((a,b)=>a-b); save(); renderList(); };
+  const mid=QS.map(q=>q.n).filter(isMid);
+  v.append(el("p",{class:"small",style:"margin:0 0 12px",text:"本番で出る可能性がある質問の一覧です。ヒントを開くと、見られる点と答え方のこつが分かります。チェックした質問だけで面接することもできます。"}));
+  v.append(el("div",{class:"ltools"},
+    el("button",{class:"btn",type:"button",onclick:()=>pick([CFG.first,...shuffle(QS.filter(q=>q.s&&isMid(q.n)).map(q=>q.n)).slice(0,6),CFG.last])},"★頻出から8問"),
+    el("button",{class:"btn",type:"button",onclick:()=>pick([CFG.first,...shuffle(mid).slice(0,6),CFG.last])},"ランダムに8問"),
+    el("button",{class:"btn ghost",type:"button",onclick:()=>pick([])},"選択を解除"),count));
+  let grp=null, last="";
+  for(const q of QS){
+    if(q.g!==last){ grp=el("div",{class:"lgroup"},el("h3",{text:q.g})); v.append(grp); last=q.g; }
+    const on=state.sel.includes(q.n);
+    const cb=el("input",{type:"checkbox","aria-label":`${q.n}番を選ぶ`}); cb.checked=on;
+    cb.addEventListener("change",()=>{ pick(on?state.sel.filter(x=>x!==q.n):[...state.sel,q.n]); });
+    grp.append(el("div",{class:"qitem"+(on?" sel":"")},el("span",{class:"badge",text:String(q.n)}),el("div",{class:"t"},q.q,q.s?el("span",{class:"star",text:"★頻出"}):null),cb,
+      el("details",{},el("summary",{text:"ヒント"}),el("p",{},el("b",{text:"見られる点："}),q.a),el("p",{},el("b",{text:"答え方："}),q.t))));
+  }
+  count.textContent=`${state.sel.length}問を選択中`;
+  v.append(el("div",{class:"lfoot"},el("button",{class:"btn primary huge",type:"button",disabled:state.sel.length?null:"",onclick:()=>{ state.set.src="sel"; save(); setView("practice"); renderIdle(); }},`選んだ${state.sel.length}問で面接する`)));
+}
+
+
+/* ---------- 手入力でFB（先生が面接官のとき） ---------- */
+const todayStr=()=>{ const d=new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; };
+const newRow=n=>({n:n||"",q:"",a:"",sec:"",note:""});
+function manualState(){ if(!state.manual) state.manual={round:"1回目",date:todayStr(),theme:"",rows:[newRow(1),newRow()],overall:""}; return state.manual; }
+function manualSource(){
+  const m=manualState();
+  const items=m.rows.map(r=>{ const q=r.n==="0"?r.q.trim():(r.n?QS[+r.n-1].q:""); return {label:r.n&&r.n!=="0"?`${r.n}番`:"追加の質問",q,a:r.a.trim(),sec:Math.round(Number(String(r.sec).replace(/[^0-9.]/g,""))||0),note:r.note.trim()}; }).filter(x=>x.q&&x.a);
+  return {mode:"manual",round:m.round,theme:m.theme,at:m.date?m.date+"T12:00:00":Date.now(),items,overall:m.overall.trim()};
+}
+function renderManual(){
+  const v=$("#vManual"); v.textContent=""; const m=manualState();
+  const inp=(key,attrs,obj=m)=>{ const tag=attrs.tag||"input"; delete attrs.tag; const e=el(tag,attrs); e.value=obj[key]||""; e.addEventListener("input",()=>{ obj[key]=e.value; save(); }); return e; };
+  const rowsBox=el("div",{class:"mrows"});
+  const drawRows=()=>{ rowsBox.textContent="";
+    m.rows.forEach((r,i)=>{
+      const sel=el("select",{"aria-label":`質問${i+1}`}); sel.append(el("option",{value:"",text:"質問を選ぶ"}));
+      let og=null,last=""; QS.forEach(q=>{ if(q.g!==last){ og=el("optgroup",{label:q.g}); sel.append(og); last=q.g; } og.append(el("option",{value:String(q.n),text:`${q.n}. ${q.q}`})); });
+      sel.append(el("option",{value:"0",text:"その他（質問を自分で入力）"})); sel.value=String(r.n||"");
+      const free=inp("q",{type:"text",placeholder:"質問を入力（深掘りの質問など）"},r); free.hidden=r.n!=="0";
+      sel.addEventListener("change",()=>{ r.n=sel.value; free.hidden=r.n!=="0"; save(); });
+      const del=el("button",{class:"btn ghost",type:"button","aria-label":`質問${i+1}を削除`,onclick:()=>{ m.rows.splice(i,1); if(!m.rows.length) m.rows.push(newRow()); save(); drawRows(); }},"削除");
+      rowsBox.append(el("div",{class:"mrow"},
+        el("div",{class:"mhead"},el("b",{text:`質問 ${i+1}`}),del),
+        sel,free,
+        el("label",{class:"field"},el("span",{text:"答えの内容（要点のメモでOK）"}),inp("a",{tag:"textarea",rows:"3",placeholder:"例：探究で和菓子店と商品を企画。SNS担当。売上2倍。お客さんの声を聞く大切さを学んだ。"},r)),
+        el("div",{class:"mgrid"},
+          el("label",{class:"field"},el("span",{text:"回答時間（秒・任意）"}),inp("sec",{type:"text",inputmode:"numeric",placeholder:"例：60"},r)),
+          el("label",{class:"field"},el("span",{text:"面接官の気づき（任意）"}),inp("note",{tag:"textarea",rows:"2",placeholder:"例：結論が後回し。深掘りで具体例が出なかった。"},r)))));
+    }); };
+  drawRows();
+  v.append(el("div",{class:"card"},
+    el("h2",{class:"mh2",text:"面接の内容を入力して、FBを作る"}),
+    el("p",{class:"small",style:"margin:4px 0 0",text:"先生が面接官になって練習したときに使います。聞いた質問を選び、答えの要点を入力すると、Geminiへの依頼文ができます。入力した内容はこの端末に保存されます。"}),
+    el("div",{class:"moregrid",style:"margin-top:16px"},
+      el("label",{class:"field"},el("span",{text:"練習回"}),inp("round",{type:"text"})),
+      el("label",{class:"field"},el("span",{text:"実施日"}),inp("date",{type:"date"})),
+      el("label",{class:"field wide"},el("span",{text:CFG.themeLabel+"（任意）"}),inp("theme",{tag:"textarea",rows:"2",placeholder:CFG.themePH}))),
+    el("h3",{class:"mh3",text:"質問と答え"}),
+    rowsBox,
+    el("button",{class:"btn",type:"button",style:"margin-top:10px",onclick:()=>{ m.rows.push(newRow()); save(); drawRows(); rowsBox.lastChild.querySelector("select").focus(); }},"＋ 質問を追加"),
+    el("label",{class:"field",style:"margin-top:18px"},el("span",{text:"全体を通した気づき（声の大きさ、目線、姿勢、話す速さなど。任意）"}),inp("overall",{tag:"textarea",rows:"3",placeholder:"例：声は聞き取りやすい。考えるときに目線が下がる。入退室のあいさつは良い。"})),
+    el("h3",{class:"mh3",text:"FBのPDFを作る"}),
+    stepsBlock(()=>manualSource().items.length?buildPrompt(manualSource()):null,"質問を選び、答えの内容を1つ以上入力してください。","入力した質問・答え・気づきが入った依頼文です。"),
+    el("div",{class:"again"},el("button",{class:"btn ghost",type:"button",onclick:()=>{ if(confirm("入力した内容をすべて消して、新しい生徒の入力を始めますか？")){ state.manual=null; save(); renderManual(); } }},"入力をすべて消す"))));
+}
+
+/* ---------- 起動 ---------- */
+$("#eyebrow").textContent=`${CFG.school}｜${CFG.exam}　${CFG.format}`;
+if(CFG.manual) $("#tabManual").hidden=false;
+if(CFG.home){ $(".top").prepend(el("a",{class:"home",href:CFG.home},"← TOPへ戻る")); }
+$("#ttl").textContent=CFG.title;
+renderIdle();
+</script>
+
+</body>
+</html>
