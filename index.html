@@ -99,6 +99,13 @@ kbd{font:inherit;font-size:12px;border:1.5px solid currentColor;border-radius:5p
 .cta{position:sticky;bottom:calc(76px + env(safe-area-inset-bottom,0px));margin-top:22px;z-index:5}
 .cta .btn.huge{box-shadow:0 8px 24px -10px var(--accent)}
 .resume{margin-top:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1.5px dashed var(--line);border-radius:16px;padding:10px 14px;font-size:13.5px}
+.namecard{display:flex;flex-direction:column;gap:8px;margin-top:16px;background:var(--soft);border:2px solid var(--accent);border-radius:20px;padding:16px 18px}
+.namecard.done{background:var(--surface);border-color:var(--line)}
+.namecard .nl{display:flex;flex-direction:column;gap:1px}
+.namecard .nl b{font-family:var(--round);font-size:16px}
+.namecard .nl span{font-size:12.5px;color:var(--muted)}
+.namecard input{border:1.5px solid var(--line);border-radius:12px;padding:11px 13px;background:#fff;width:100%;font-size:16px}
+.namecard input:focus-visible{border-color:var(--accent)}
 details.more{margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
 details.more summary{cursor:pointer;color:var(--muted);font-size:14px;font-weight:700}
 .field{display:flex;flex-direction:column;gap:6px;margin-top:12px}
@@ -332,7 +339,7 @@ const FOLLOW={
  "志望理由書の深掘り":["それを数字で言うと、どのくらいですか。","そのとき、あなた自身はどう判断しましたか。","その経験を、本学科のどの学びにつなげますか。","もう一度やるとしたら、何を変えますか。"]
 };
 
-const CFG={accent:"#5a2d82",soft:"#efe8f6",
+const CFG={accent:"#5a2d82",soft:"#efe8f6",report:"https://script.google.com/macros/s/AKfycbwLF86Up-uLSwp1y8vLOc72wHkRrGccNGnalg_QSqByvUAXb0gbVsAQf66JPgvz-S0/exec",
  key:"rikkyo-af-s1", fileTag:"立教", title:"会計ファイナンス学科 面接セルフ練習（志望理由書版）",
  school:"立教大学 経済学部 会計ファイナンス学科", exam:"自由選抜入試",
  format:"個人面接 約15分（2次選考。総合科目もあり）",
@@ -372,9 +379,29 @@ const rnd=a=>a[Math.floor(Math.random()*a.length)];
 const fmtT=s=>`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,"0")}`;
 
 /* ---------- 保存（このブラウザ内） ---------- */
-let state={sel:[...CFG.defaultSel],set:{count:8,voice:true,follow:true,src:"rand"},round:"1回目",theme:"",answers:{},times:{},session:null,history:[],examDate:"",checks:{}};
+let state={sel:[...CFG.defaultSel],set:{count:8,voice:true,follow:true,src:"rand"},round:"1回目",theme:"",name:"",answers:{},times:{},session:null,history:[],examDate:"",checks:{},outbox:[]};
 try{ const s=JSON.parse(localStorage.getItem(CFG.key)||"null"); if(s) state=Object.assign(state,s,{set:Object.assign(state.set,s.set||{})}); }catch(e){}
 let svT; function save(){ clearTimeout(svT); svT=setTimeout(()=>{ try{localStorage.setItem(CFG.key,JSON.stringify(state));}catch(e){} },250); }
+
+/* ---------- 活用状況の自動送信（先生用の集計シートへ。画面には出さない） ---------- */
+function report(entry){
+  if(!CFG.report) return;
+  try{ state.outbox=state.outbox||[]; state.outbox.push(entry); if(state.outbox.length>300) state.outbox=state.outbox.slice(-300); save(); flushReports(); }catch(e){}
+}
+let flushing=false;
+async function flushReports(){
+  if(flushing||!CFG.report||!navigator.onLine) return;
+  const q=state.outbox||[]; if(!q.length) return;
+  flushing=true;
+  try{
+    while(q.length){
+      try{ await fetch(CFG.report,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(q[0])}); }
+      catch(e){ break; }            /* ネット不通などは次回へ持ち越し */
+      q.shift(); state.outbox=q; save();
+    }
+  } finally { flushing=false; }
+}
+try{ window.addEventListener("online",flushReports); }catch(e){}
 
 /* ---------- 読み上げ ---------- */
 function pickVoice(){ try{ const vs=speechSynthesis.getVoices().filter(v=>/^ja/i.test(v.lang)); return vs.find(v=>/Google/.test(v.name))||vs[0]||null; }catch(e){ return null; } }
@@ -535,9 +562,15 @@ function renderIdle(){
   const theme=el("textarea",{id:"theme",rows:"3",placeholder:CFG.themePH}); theme.value=state.theme; theme.addEventListener("input",()=>{state.theme=theme.value;save();});
   const envBad=ENV_BAD||(!CAN_REC?"このブラウザでは録音できません。iPhoneはSafari、AndroidはChromeで開いてください（LINEなどのアプリの中で開いた場合は、メニューから「ブラウザで開く」を選んでください）。":"");
   const errBox=el("div",{class:"alert",id:"startErr",hidden:"",style:"margin-top:12px"});
+  const needName=!!CFG.report, hasName=!!(state.name||"").trim();
+  const nameIn=el("input",{type:"text",id:"nameIn",placeholder:"例：桜丘 花子",value:state.name||"",autocomplete:"name"});
+  nameIn.addEventListener("input",()=>{ state.name=nameIn.value; save(); const nc=$("#nameCard"); if(nc) nc.classList.toggle("done",!!nameIn.value.trim()); const se=$("#startErr"); if(se&&nameIn.value.trim()) se.hidden=true; });
+  const nameCard=needName?el("label",{class:"namecard"+(hasName?" done":""),id:"nameCard",for:"nameIn"},
+    el("span",{class:"nl"},el("b",{text:"名前（記録用）"}),el("span",{text:"最初に一度だけ入力してください"})),nameIn):null;
   add(v,
     envBad?el("div",{class:"alert",style:"margin-bottom:12px",text:envBad}):null,
     count,
+    nameCard,
     el("div",{class:"stats"},
       el("div",{class:"stat"},el("b",{},String(hist.length),el("small",{text:"回"})),el("span",{text:"練習した"})),
       el("div",{class:"stat fire"},el("b",{},String(st),el("small",{text:"日"})),el("span",{text:"連続で練習中"})),
@@ -613,6 +646,7 @@ function showQ(n,text,follow){
 async function startIv(){
   if(iv.on) return;
   const eb=$("#startErr"); if(eb){ eb.hidden=true; }
+  if(CFG.report&&!(state.name||"").trim()){ if(eb){ eb.hidden=false; eb.textContent="最初に名前を入力してください。"; } const ni=$("#nameIn"); if(ni){ ni.focus(); ni.scrollIntoView({block:"center"}); } return; }
   if(ENV_BAD||!CAN_REC){ if(eb){ eb.hidden=false; eb.textContent=ENV_BAD||"このブラウザでは録音できません。"; } return; }
   unlockVoice();
   const ok=await micOpen();
@@ -688,9 +722,11 @@ async function wrapUp(){
   const w=buildWav(); micClose();
   LAST={blob:w.blob,marks:w.marks,total:w.total,session:state.session,round:state.round,theme:state.theme};
   if(w.marks.length){
-    state.history=state.history||[]; state.history.unshift({at:state.session.at,q:new Set(w.marks.map(m=>m.n)).size,sec:Math.round(w.total),fol:w.marks.filter(m=>m.follow).length});
+    const qn=new Set(w.marks.map(m=>m.n)).size, sec=Math.round(w.total), fol=w.marks.filter(m=>m.follow).length;
+    state.history=state.history||[]; state.history.unshift({at:state.session.at,q:qn,sec,fol});
     state.history=state.history.slice(0,60); save();
     await IDB.put(CFG.key+"-last",LAST);
+    report({name:(state.name||"").trim(),tool:CFG.fileTag||CFG.key,school:CFG.school,round:state.round,at:state.session.at,q:qn,sec,fol,ua:(navigator.userAgent||"").slice(0,140)});
   }
 }
 async function finishIv(){
@@ -968,9 +1004,9 @@ function renderManual(){
 })();
 $("#eyebrow").textContent=`${CFG.school}｜${CFG.exam}`;
 $("#ttl").textContent=CFG.title;
-if(CFG.manual) $("#tabManual").hidden=false;
 if(CFG.home) $(".bar").prepend(el("a",{class:"home",href:CFG.home},"← TOPへ戻る"));
 renderIdle();
+try{ flushReports(); }catch(e){}
 
 </script>
 
